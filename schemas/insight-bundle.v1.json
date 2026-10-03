@@ -1,0 +1,40 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://ppt-design.local/schemas/insight-bundle.v1.json",
+  "title":"Insight Bundle v1",
+  "type":"object",
+  "required":["profile","insights"],
+  "properties":{
+    "version":{"type":"string"},
+    "profile":{"const":"INSIGHT-BUNDLE-v1"},
+    "sourceSummary":{"type":"object"},
+    "insights":{"type":"array","items":{"$ref":"#/$defs/insight"}},
+    "recommendations":{"type":"object"},
+    "briefPatch":{"type":"object"}
+  },
+  "$defs":{
+    "insight":{
+      "type":"object",
+      "required":["id","type","title","message","score","confidence","sourceRefs","method"],
+      "properties":{
+        "id":{"type":"string"},
+        "type":{"enum":["period_delta","trend","change_point","anomaly","ranking","concentration","contribution","correlation","segment_gap"]},
+        "title":{"type":"string"},
+        "message":{"type":"string"},
+        "score":{"type":"number","minimum":0,"maximum":100},
+        "confidence":{"type":"number","minimum":0,"maximum":1},
+        "priority":{"enum":["HIGH","MED","LOW"]},
+        "direction":{"enum":["up","down","mixed","none"]},
+        "metric":{"type":"string"},
+        "dimension":{"type":"string"},
+        "unit":{"type":"string"},
+        "n":{"type":"number"},
+        "evidence":{"type":"object"},
+        "method":{"type":"object"},
+        "sourceRefs":{"type":"array","items":{"type":"string"},"minItems":1},
+        "warnings":{"type":"array","items":{"type":"string"}},
+        "tags":{"type":"array","items":{"type":"string"}}
+      }
+    }
+  }
+}
