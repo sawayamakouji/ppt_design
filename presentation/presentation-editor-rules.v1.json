@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "profile": "PRESENTATION-EDITOR-RULES-v1",
+  "headline": {
+    "maxCharsJa": 52,
+    "preferClaimOverTopicLabel": true,
+    "rejectGenericPhrases": [
+      "重要指標を同時に見る",
+      "数値を要因へ分解する",
+      "数字から次の判断へ",
+      "現状から目指す姿へ"
+    ]
+  },
+  "kpi": {
+    "maxItems": 4,
+    "valueMaxChars": 24,
+    "labelMaxChars": 18,
+    "preferKinds": ["target_delta", "contribution", "concentration", "association"],
+    "sentenceInValue": false
+  },
+  "story": {
+    "driverSequence": ["opening", "kpi", "hierarchy", "breakdown", "association", "action"],
+    "adjacentEvidenceReuseMax": 0.5,
+    "oneQuestionPerSlide": true,
+    "onePrimaryClaimPerSlide": true
+  },
+  "scope": {
+    "lockToTargetSourceWhenSameMetric": true,
+    "suppressUnknownCrossSourceScale": true,
+    "allowCrossSourceWhenExplicitlyComparable": false
+  },
+  "causalLanguage": {
+    "accounting_decomposition": ["寄与", "構成", "増減の内訳"],
+    "association_only": ["関連", "同方向に動く", "相関"],
+    "descriptive_difference": ["差", "水準差"],
+    "requires_validation": ["検証候補", "追加確認"],
+    "forbiddenWithoutCausalDesign": ["原因", "影響した", "効果が出た", "〜のせいで"]
+  },
+  "compression": {
+    "maxBodyChars": 76,
+    "maxActionTextChars": 42,
+    "moveLongMethodologyToNotes": true
+  }
+}
