@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "profile": "BRIEF-v1",
+  "title": "売変悪化の要因探索レポート",
+  "topic": "売変金額の変化と要因候補",
+  "audience": "executive",
+  "objective": "analysis",
+  "slideCount": 6,
+  "density": "MED",
+  "dataEmphasis": "HIGH",
+  "language": "ja-JP",
+  "analysisTarget": {
+    "metric": "markdown_amount",
+    "preferredDirection": "down"
+  },
+  "content": {
+    "lead": "売変金額の悪化がどのエリア・店舗・部門・カテゴリに集中し、在庫や発注修正率とどのように関連するかを探索する。"
+  }
+}
