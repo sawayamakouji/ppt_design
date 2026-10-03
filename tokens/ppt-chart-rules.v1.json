@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "modes": {
+    "CHART-NATIVE": {
+      "purpose": "editability_first",
+      "allowed": ["bar", "line", "scatter", "pie"],
+      "maxSeriesDefault": 3,
+      "no3D": true,
+      "noGradient": true,
+      "noShadow": true,
+      "preferDirectLabels": true
+    },
+    "CHART-SHAPE": {
+      "purpose": "visual_fidelity_first",
+      "editableShapes": true,
+      "explicitCoordinateMapping": true,
+      "labelsRemainTextBoxes": true,
+      "recommendedFor": ["annotated_data_story", "small_data_key_message"]
+    }
+  },
+  "selection": {
+    "timeSeries": "line",
+    "categoryComparison": "bar",
+    "ranking6Plus": "horizontal_bar",
+    "partToWholeMax6": "pie_if_true_total",
+    "numericRelationship": "scatter"
+  },
+  "typographyPt": {
+    "axis": [9, 11],
+    "dataLabel": [10, 12],
+    "annotation": [11, 14],
+    "kpi": [24, 48]
+  }
+}
