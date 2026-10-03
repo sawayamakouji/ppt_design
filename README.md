@@ -34,7 +34,7 @@ Presentation design system repository for the **Editorial 90/8/2** style.
 
 Example instruction:
 
-> `ED08-C / MED / TH01 / CM02 / PPT-SAFE-v1.2`
+> `ED08-C / MED / TH01 / CM02 / PPT-SAFE-v1.3`
 
 ## Text density
 
@@ -48,20 +48,21 @@ Principle:
 
 ## PowerPoint rendering layer
 
-Current compatibility profile: **`PPT-SAFE-v1.2`**.
+Current compatibility profile: **`PPT-SAFE-v1.3`**.
 
 The rendering layer controls:
 
-1. font mapping and fallback
+1. font mapping and fallback detection
 2. deterministic text fitting
 3. chart mode (`CHART-NATIVE` / `CHART-SHAPE`)
 4. foreground/background contrast
-5. regression QA
+5. geometry / minimum-font blocking QA
 6. shared HTML/PPT geometry
+7. Windows PowerPoint golden-render workflow
 
-### v1.2 architecture
+### v1.2 architecture retained
 
-Production patterns no longer maintain separate HTML and PowerPoint layout logic.
+Production patterns use a renderer-neutral shared scene definition:
 
 `Page Pattern × Text Density × Theme × Composition`
 
@@ -71,32 +72,62 @@ Production patterns no longer maintain separate HTML and PowerPoint layout logic
 
 → Regression QA
 
-The scene graph owns explicit text boxes, rectangles, lines, ellipses, chart bars, labels, callouts, and connector coordinates. Renderer backends should remain thin.
+Layout intelligence belongs in the resolved scene graph, not duplicated backend code.
 
-This prevents the classic failure mode where an HTML design is correct but the separately coded PowerPoint version slowly drifts.
+### v1.3 portability layer
 
-### Current regression result
+v1.3 expands regression beyond TH01 and raster similarity.
 
-Using the same deterministic QA pipeline for both versions:
+Coverage now includes:
 
-- PPT-SAFE v1.1 average SSIM: **0.9053**
-- PPT-SAFE v1.2 average SSIM: **0.9287**
-- improvement: **+0.0234**
-- v1.2 gate `>= 0.92`: **PASS**
+- `TH05` Technical Blueprint
+- `TH12` Midnight Neon
+- `CM03` text-heavy calm layouts
+- `CHART-SHAPE` fidelity-first charts
+- `CHART-NATIVE` editability-first charts
+- slide-run font declaration audit
+- geometry / minimum-font audit
+- Windows Microsoft PowerPoint PNG export workflow
+
+Portable slide fonts are declared as:
+
+- Japanese / mixed: `Yu Gothic`
+- Latin labels / numbers: `Aptos`
+
+Approved fallbacks include `Yu Gothic UI`, `Meiryo`, and `Arial`.
+
+The current Linux/LibreOffice environment does not contain Yu Gothic or Aptos, so its render is treated as a compatibility stress test. The final production golden is the Windows Microsoft PowerPoint export.
+
+### Current QA status
+
+v1.2 shared-geometry test:
+
+- average SSIM: **0.9287**
+- overflow: **PASS**
+
+v1.3 portability deck:
+
+- slides: **8**
+- slide-bounds audit: **PASS**
+- text below `8.5 pt`: **0**
 - overflow test: **PASS**
-
-The annotated `ED08-C` Data Story improved from `0.8933` to `0.9211` by moving its chart annotation geometry into the shared scene graph.
+- unapproved slide-run fonts: **0**
+- TH05 / TH12 / CM03 / Native / Shape coverage: **PASS**
 
 Canonical files:
 
 - `docs/PPT_RENDERING_SPEC_V1_2.md`
+- `docs/PPT_RENDERING_SPEC_V1_3.md`
 - `renderers/SHARED_SCENE_GRAPH_V1_2.md`
 - `tokens/ppt-font-rules.v1.json`
 - `tokens/ppt-text-fit.v1.json`
 - `tokens/ppt-chart-rules.v1.json`
 - `tokens/ppt_render_metrics.v1.2.json`
 - `qa/PPT_SAFE_V1_2_RESULTS.md`
-- `qa/ppt-regression-rules.v1.json`
+- `qa/PPT_SAFE_V1_3_RESULTS.md`
+- `qa/audit_pptx_portability.py`
+- `qa/audit_pptx_geometry.py`
+- `qa/export_powerpoint_golden_windows.ps1`
 - `qa/compare_rendered_slides.py`
 
 ## Repository structure
@@ -110,7 +141,7 @@ ppt_design/
 ├─ composition/    # CM01 / CM02 / CM03 composition modes
 ├─ tokens/         # Color, typography, spacing, PPT-safe rendering tokens
 ├─ renderers/      # Shared scene graph / HTML / PPT renderer design
-├─ qa/             # Regression and visual QA rules
+├─ qa/             # Regression, font, geometry, Windows golden QA
 ├─ pptx/           # Editable PowerPoint examples
 └─ docs/           # Design rules and authoring guidance
 ```
