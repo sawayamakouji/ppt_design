@@ -1,5 +1,5 @@
 {
-  "version": "1.7",
+  "version": "1.8",
   "profile": "PPT-DESIGN-AGENT-v1",
   "blocking": [
     "no_primary_message",
@@ -20,11 +20,14 @@
     "narrative_order_failure",
     "title_chain_failure",
     "deck_length_redundancy",
-    "page_overload_requires_split"
+    "page_overload_requires_split",
+    "font_below_readable_floor",
+    "density_overload",
+    "requires_editorial_reflow"
   ],
   "rules": {
     "hierarchy": {"id":"L01","primaryCount":1,"maxHierarchyLevels":4,"requirePrimarySecondaryTertiaryDistinction":true},
-    "typography": {"id":"L02","maxPrimaryFontSizes":4,"useMultipleEmphasisFactors":true,"avoidAllBold":true},
+    "typography": {"id":"L02","maxPrimaryFontSizes":4,"useMultipleEmphasisFactors":true,"avoidAllBold":true,"minReadableFontPt":8.5,"neverShrinkBelowReadableFloor":true},
     "spacing": {"id":"L03","betweenGroupToWithinGroupMinRatio":2.0,"useTokenScale":true,"preferProximityOverExtraBorders":true},
     "color": {"id":"L04","bodyContrastTarget":4.5,"largeTextContrastTarget":3.0,"signalColorSparse":true,"foregroundBackgroundPairRequired":true},
     "clutter": {"id":"L05","maxStrongVisualElements":3,"removeRedundantDecoration":true,"removeRedundantLabels":true},
@@ -37,7 +40,8 @@
     "editorialStoryFit": {"id":"L12","oneQuestionPerSlide":true,"onePrimaryClaimPerSlide":true,"preferClaimHeadlineOverGenericTopicLabel":true,"suppressUndeclaredCrossSourceMetricComparisons":true,"avoidAdjacentSlidesAnsweringSameQuestionWithSameEvidence":true,"preserveEvidenceCausalStatusInWording":true,"compressAnalyticalProseBeforePatternResolution":true,"storySequenceMustBeExplicit":true},
     "deckNarrativeRhythm": {"id":"L13","titleSequenceMustReadAsStory":true,"avoidAdjacentRepeatedQuestions":true,"avoidAdjacentRepeatedClaims":true,"recentSilhouetteWindow":3,"avoidSameSilhouetteWithinWindow":true,"allowIntentionalSequenceRepetition":true,"preferVisualModeChangeAfterKpi":true,"requireDeckLevelEnergyVariation":true,"preferDecisionOrActionCloseWhenObjectiveRequiresIt":true,"threeDirectionsMustDifferStructurally":true},
     "narrativeSequence": {"id":"L14","objectiveMustResolveToNarrativeArc":true,"detectEvidenceInterpretationOrderInversions":true,"respectSequenceLocks":true,"stableReorderOnly":true,"titleChainMustRemainFactPreserving":true,"titleBridgeMustNotStrengthenCausalStatus":true,"displayHeadlineMustReachRenderedArtifact":true,"preferActionCloseWhenArcRequiresIt":true},
-    "deckLengthFit": {"id":"L15","targetSlideCountIsGuidanceNotForced":true,"preferMergeBeforeDroppingUniqueEvidence":true,"splitOverloadedStructuredPagesBeforeFontShrink":true,"dropOnlyExplicitOptionalDuplicatesAutomatically":true,"protectOpeningAndActionClose":true,"doNotMergeConflictingCausalStatus":true,"respectDeckLengthAndSequenceLocks":true,"recordEveryLengthOperation":true,"allAutomaticOperationsMustBeReversible":true,"neverInventEvidenceToFillADeck":true}
+    "deckLengthFit": {"id":"L15","targetSlideCountIsGuidanceNotForced":true,"preferMergeBeforeDroppingUniqueEvidence":true,"splitOverloadedStructuredPagesBeforeFontShrink":true,"dropOnlyExplicitOptionalDuplicatesAutomatically":true,"protectOpeningAndActionClose":true,"doNotMergeConflictingCausalStatus":true,"respectDeckLengthAndSequenceLocks":true,"recordEveryLengthOperation":true,"allAutomaticOperationsMustBeReversible":true,"neverInventEvidenceToFillADeck":true},
+    "typographyDensityFit": {"id":"L16","minReadableFontPt":8.5,"guardBeforeRender":true,"safeAutoRaiseAllowed":true,"bodyDensityWarningRatio":0.9,"bodyDensityHardLimitRatio":1.25,"largeDisplayTitlesMayWrapIntentionally":true,"neverResolveOverloadByShrinkingBelowFloor":true,"editorialReflowActions":["shorten_copy","change_pattern","split_page","move_detail_to_appendix"]}
   },
-  "workflow": ["brief","evidence_input","content_planner","presentation_editor","deck_length_editor","deck_director_sequence","deck_director_rhythm","reference_grammar","three_variations","human_review","resolve_design_system","design_lint","shared_scene_graph","render_html_ppt_golden","ppt_safe_qa"]
+  "workflow": ["brief","evidence_input","content_planner","presentation_editor","deck_length_editor","deck_director_sequence","deck_director_rhythm","reference_grammar","three_variations","human_review","resolve_design_system","design_lint","shared_scene_graph","typography_density_guard","render_html_ppt_golden","ppt_safe_qa"]
 }
