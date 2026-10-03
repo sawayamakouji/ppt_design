@@ -1,0 +1,17 @@
+{
+  "version":"1.0",
+  "profile":"BRIEF-v1",
+  "title":"発注支援PoC 効果と運用改善",
+  "topic":"発注支援PoC",
+  "audience":"executive",
+  "objective":"report",
+  "slideCount":6,
+  "tone":"business",
+  "density":"MED",
+  "dataEmphasis":"HIGH",
+  "novelty":"MED",
+  "medium":"both",
+  "language":"ja-JP",
+  "decision":"重点店舗の改善施策を次月から実行するか判断する",
+  "content":{}
+}
