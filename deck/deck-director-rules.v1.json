@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "profile": "DECK-DIRECTOR-v1",
+  "defaultRecentSilhouetteWindow": 3,
+  "maxAdjacentSameEnergy": 2,
+  "energyByStoryStep": {
+    "opening": "PEAK",
+    "kpi": "PEAK",
+    "hierarchy": "BRIDGE",
+    "breakdown": "EVIDENCE",
+    "association": "CALM",
+    "action": "PEAK",
+    "generic": "CALM"
+  },
+  "patternPreferences": {
+    "opening": {"A":"ED01-D","B":"ED01-C","C":"ED01-A"},
+    "kpi": {"A":"ED03-D","B":"ED08-F","C":"ED03-B"},
+    "hierarchy": {"A":"ED07-A","B":"ED07-E","C":"ED07-F"},
+    "breakdown": {"A":"ED08-D","B":"ED08-F","C":"ED08-G"},
+    "association": {"A":"ED04-A","B":"ED04-D","C":"ED04-B"},
+    "action": {"A":"ED11-B","B":"ED11-D","C":"ED11-A"},
+    "generic": {"A":"ED02-A","B":"ED02-C","C":"ED02-B"}
+  },
+  "silhouetteFamily": {
+    "ED01":"hero",
+    "ED02":"message",
+    "ED03":"kpi-cards",
+    "ED04":"points",
+    "ED05":"compare",
+    "ED06":"problem-solution",
+    "ED07":"flow",
+    "ED08":"data",
+    "ED09":"matrix",
+    "ED10":"timeline",
+    "ED11":"action",
+    "ED12":"evidence"
+  },
+  "rules": {
+    "oneVisualPeakEverySlides": 2,
+    "avoidSameSilhouetteWithinWindow": true,
+    "allowIntentionalSequenceRepetition": true,
+    "openingAndClosingShouldNotFeelIdentical": true,
+    "titleSequenceMustReadAsStory": true,
+    "avoidAdjacentSlidesWithSameQuestion": true,
+    "avoidAdjacentSlidesWithSameClaim": true,
+    "preferVisualModeChangeAfterKpi": true,
+    "preferActionClose": true
+  }
+}
