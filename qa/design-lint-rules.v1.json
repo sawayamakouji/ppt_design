@@ -1,5 +1,5 @@
 {
-  "version": "1.2",
+  "version": "1.3",
   "profile": "PPT-DESIGN-AGENT-v1",
   "blocking": [
     "no_primary_message",
@@ -11,7 +11,10 @@
     "connector_endpoint_misalignment",
     "prose_in_kpi_value",
     "unaggregated_duplicate_time_categories",
-    "internal_metadata_exposed"
+    "internal_metadata_exposed",
+    "cross_scope_metric_mixing",
+    "generic_headline_after_editorial_pass",
+    "causal_language_exceeds_evidence"
   ],
   "rules": {
     "hierarchy": {"id":"L01","primaryCount":1,"maxHierarchyLevels":4,"requirePrimarySecondaryTertiaryDistinction":true},
@@ -35,7 +38,18 @@
       "avoidAdjacentSlidesWithSameEvidenceAndSameCardSilhouette": true,
       "preferEvidenceDiversityForMultiKpi": ["target_delta","contribution","concentration","association"],
       "causalStatusMustRemainVisibleInDiagnosticNarrative": true
+    },
+    "editorialStoryFit": {
+      "id": "L12",
+      "oneQuestionPerSlide": true,
+      "onePrimaryClaimPerSlide": true,
+      "preferClaimHeadlineOverGenericTopicLabel": true,
+      "suppressUndeclaredCrossSourceMetricComparisons": true,
+      "avoidAdjacentSlidesAnsweringSameQuestionWithSameEvidence": true,
+      "preserveEvidenceCausalStatusInWording": true,
+      "compressAnalyticalProseBeforePatternResolution": true,
+      "driverStorySequence": ["opening","kpi","hierarchy","breakdown","association","action"]
     }
   },
-  "workflow": ["brief","story","reference_grammar","three_variations","human_review","resolve_design_system","design_lint","shared_scene_graph","render_html_ppt_golden","ppt_safe_qa"]
+  "workflow": ["brief","story","insight_engine","driver_explorer","content_planner","presentation_editor","reference_grammar","three_variations","human_review","resolve_design_system","design_lint","shared_scene_graph","render_html_ppt_golden","ppt_safe_qa"]
 }
