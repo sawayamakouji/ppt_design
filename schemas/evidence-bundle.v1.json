@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/evidence-bundle.v1.json",
+  "title": "EVIDENCE-BUNDLE-v1",
+  "type": "object",
+  "required": ["profile", "evidence"],
+  "properties": {
+    "profile": {"const": "EVIDENCE-BUNDLE-v1"},
+    "topic": {"type": "string"},
+    "scope": {"type": "string"},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "claim", "sourceRefs"],
+        "properties": {
+          "id": {"type": "string"},
+          "kind": {"enum": ["kpi", "delta", "trend", "ranking", "breakdown", "association", "causal_estimate", "table", "quote", "image", "other"]},
+          "claim": {"type": "string"},
+          "displayValue": {"type": ["string", "number", "null"]},
+          "label": {"type": ["string", "null"]},
+          "detail": {"type": ["string", "null"]},
+          "causalStatus": {"enum": ["descriptive", "association", "contribution", "causal", "not_applicable"]},
+          "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "caveats": {"type": "array", "items": {"type": "string"}},
+          "sourceRefs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "visualHint": {"type": ["string", "null"]},
+          "payload": {}
+        }
+      }
+    }
+  }
+}
