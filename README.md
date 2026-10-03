@@ -46,6 +46,40 @@ Principle:
 
 > 結論は短く。理由は文章で。詳細は構造化する。
 
+## End-to-end generation pipeline
+
+The current system separates analysis, content selection, design choice, geometry and rendering into explicit layers:
+
+```text
+Natural-language brief + Excel / CSV / JSON / BigQuery result
+  -> BRIEF-v1 + SOURCE-BUNDLE-v1
+  -> Insight Engine: statistically notable changes / gaps / anomalies / concentration
+  -> INSIGHT-BUNDLE-v1
+  -> Content Planner: which evidence belongs in this deck
+  -> CONTENT-PLAN-v1
+  -> Brief Resolver: story roles + A/B/C design directions
+  -> PATTERN-DECK-v1
+  -> Pattern Resolver: ED / Density / Theme / Composition -> geometry
+  -> SCENE-DECK-v1
+  -> Design Lab: explicit human selection / review
+  -> HTML / editable PPTX
+  -> Design Lint / PPT-SAFE / Golden QA
+```
+
+The Insight Engine currently detects period deltas, trends, change-point candidates, robust anomalies, rankings, concentration (Top-20% share / HHI / Gini), contribution, correlation, and segment gaps. Statistical association is kept separate from causal interpretation.
+
+Canonical analysis files include:
+
+- `docs/INSIGHT_ENGINE_V1.md`
+- `schemas/insight-bundle.v1.json`
+- `insight/insight-engine-rules.v1.json`
+- `tools/analyze_insights.js`
+- `tools/resolve_brief_with_insights.js`
+- `docs/CONTENT_PLANNER_V1.md`
+- `docs/BRIEF_RESOLVER_V1.md`
+- `docs/PATTERN_RESOLVER_V1.md`
+- `docs/SHARED_SCENE_GRAPH_COMPILER_V1.md`
+
 ## PowerPoint rendering layer
 
 Current compatibility profile: **`PPT-SAFE-v1.3`**.
@@ -139,9 +173,14 @@ ppt_design/
 ├─ patterns/       # Pattern definitions / IDs / metadata
 ├─ themes/         # Theme palettes / visual identities
 ├─ composition/    # CM01 / CM02 / CM03 composition modes
+├─ insight/        # Insight Engine scoring / thresholds / guardrails
+├─ content/        # Content Planner rules
+├─ brief/          # Brief Resolver rules
+├─ schemas/        # Interchange contracts: BRIEF / SOURCE / INSIGHT / CONTENT / PATTERN / SCENE
+├─ tools/          # Resolvers, compilers, adapters and review builders
 ├─ tokens/         # Color, typography, spacing, PPT-safe rendering tokens
 ├─ renderers/      # Shared scene graph / HTML / PPT renderer design
-├─ qa/             # Regression, font, geometry, Windows golden QA
+├─ qa/             # Regression, analysis, font, geometry, Windows golden QA
 ├─ pptx/           # Editable PowerPoint examples
 └─ docs/           # Design rules and authoring guidance
 ```
