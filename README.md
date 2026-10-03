@@ -91,6 +91,27 @@ Decides whether pages should be kept, merged, split, or dropped before sequence 
 
 Looks across the whole deck rather than slide-by-slide. It manages slide ordering, title-chain continuity, story progression, visual rhythm, macrostructure diversity, visual peaks, repeated silhouettes, and closing action.
 
+### Golden Benchmark Suite
+
+Regression corpus: `benchmarks/golden-v1/`.
+
+Current v1 contains:
+
+- 10 synthetic/anonymized business decks
+- 63 slides
+- 10 deck types
+- 8 themes
+- all ED01–ED12 pattern families represented
+- candidate-golden status until explicit human approval
+
+Run the corpus contract check with:
+
+```bash
+node qa/test_golden_benchmark_v1.js
+```
+
+See `docs/GOLDEN_BENCHMARK_SUITE_V1.md`.
+
 Canonical files:
 
 - `docs/PRESENTATION_EDITOR_V1.md`
@@ -101,6 +122,9 @@ Canonical files:
 - `docs/DECK_DIRECTOR_V3.md`
 - `deck/deck-director-rules.v3.json`
 - `tools/direct_deck_v3.js`
+- `benchmarks/golden-v1/manifest.v1.json`
+- `benchmarks/golden-v1/evaluation-rubric.v1.json`
+- `qa/test_golden_benchmark_v1.js`
 - `docs/CONTENT_PLANNER_V1.md`
 - `docs/BRIEF_RESOLVER_V1.md`
 - `docs/PATTERN_RESOLVER_V1.md`
@@ -154,6 +178,7 @@ The current Linux/LibreOffice environment is treated as a compatibility stress t
 ```text
 ppt_design/
 ├─ README.md
+├─ benchmarks/     # Golden benchmark regression corpus
 ├─ samples/        # HTML design-system, deterministic plans and slide-pattern playgrounds
 ├─ patterns/       # Pattern definitions / IDs / metadata
 ├─ themes/         # Theme palettes / visual identities
