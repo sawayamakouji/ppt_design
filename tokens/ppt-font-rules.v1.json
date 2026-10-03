@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "profile": "PPT-SAFE-v1",
+  "slide": {
+    "widthIn": 13.333,
+    "heightIn": 7.5,
+    "aspect": "16:9"
+  },
+  "fonts": {
+    "mixedJapanese": {
+      "primary": "Yu Gothic",
+      "fallbacks": ["Yu Gothic UI", "Meiryo"]
+    },
+    "latinOnly": {
+      "primary": "Aptos",
+      "fallbacks": ["Arial"]
+    },
+    "fidelityOptional": {
+      "japanese": "Noto Sans JP",
+      "latin": "Inter",
+      "portableDefault": false
+    }
+  },
+  "weights": {
+    "display": "bold",
+    "heading": "bold",
+    "body": "regular",
+    "label": "bold"
+  },
+  "roles": {
+    "mega": {"defaultPt": 72, "minPt": 60, "maxLines": 1},
+    "hero": {"defaultPt": 54, "minPt": 46, "maxLines": 2},
+    "h1": {"defaultPt": 38, "minPt": 34, "maxLines": 2},
+    "h2": {"defaultPt": 28, "minPt": 24, "maxLines": 2},
+    "lead": {"defaultPt": 20, "minPt": 18, "maxLines": 3},
+    "body": {"defaultPt": 15, "minPt": 13, "maxLines": 6},
+    "bodyDense": {"defaultPt": 13, "minPt": 11.5, "maxLines": 9},
+    "label": {"defaultPt": 9.5, "minPt": 9, "maxLines": 1},
+    "note": {"defaultPt": 9, "minPt": 8.5, "maxLines": 3}
+  }
+}
