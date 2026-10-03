@@ -1,0 +1,27 @@
+{
+  "version": "1.1",
+  "date": "2026-10-03",
+  "referenceRaster": {
+    "widthPx": 1600,
+    "heightPx": 900
+  },
+  "powerPointCanvas": {
+    "widthIn": 13.333,
+    "heightIn": 7.5
+  },
+  "derived": {
+    "pxPerIn": 120.0,
+    "cssPxToPtTheoretical": 0.6,
+    "fontMetricCorrection": 0.95,
+    "cssPxToPtPractical": 0.57,
+    "legacyGeneratorFontScale": 0.76
+  },
+  "regression": {
+    "publishedBaselineAverageSSIM": 0.897,
+    "samePipelineBaselineAverageSSIM": 0.8956,
+    "pptSafeV11AverageSSIM": 0.9113,
+    "qualityGate": 0.9,
+    "stretchTarget": 0.92,
+    "overflowTest": "PASS"
+  }
+}
