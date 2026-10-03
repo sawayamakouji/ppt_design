@@ -2,7 +2,9 @@
   --base: #F3F0E7;
   --paper: #FAF8F2;
   --ink: #111111;
-  --primary: #D2471D;
+
+  /* Slightly deeper vermilion than the first draft so cream text remains readable. */
+  --primary: #C9411A;
   --signal: #F6B72B;
 
   /* Contrast-safe foreground/background tokens */
@@ -23,7 +25,7 @@
   border-color: var(--primary);
 }
 
-/* Text-heavy cards use a slightly deeper vermilion for body-copy contrast. */
+/* Text-heavy cards must win over generic card backgrounds. */
 .reading-card.bgblack {
   background: var(--ink) !important;
   color: var(--on-dark) !important;
@@ -73,4 +75,12 @@
   background: var(--primary) !important;
   color: var(--on-primary) !important;
   border-color: var(--primary) !important;
+}
+
+/* Small UI text on accent surfaces also uses contrast-safe variants. */
+.fav.on,
+.dot.hot {
+  background: var(--primary-deep) !important;
+  color: var(--on-primary) !important;
+  border-color: var(--primary-deep) !important;
 }
