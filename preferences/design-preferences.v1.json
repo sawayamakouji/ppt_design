@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "profile": "PPT-DESIGN-PREFERENCE-v1",
+  "sourcePolicy": {
+    "explicitUserFeedbackOnly": true,
+    "doNotInferTasteFromSilence": true,
+    "promoteToPreferenceAfter": "repeat confirmations or explicit '好き/採用' signals",
+    "qaDefectsAreNotTaste": true
+  },
+  "aestheticPreferences": {
+    "liked": [],
+    "disliked": [],
+    "preferredThemes": [],
+    "preferredCompositionModes": [],
+    "preferredPatternIds": []
+  },
+  "qaFeedback": [
+    {
+      "id": "QF-001",
+      "source": "ai_order_design_lab_review_v1.json",
+      "scope": "C.s2",
+      "type": "collision",
+      "feedback": "カードがタイトル文字にかぶっています",
+      "rule": "Title and major content cards must not overlap. Reserve a hard exclusion zone below the title block.",
+      "status": "blocking",
+      "promoteTo": "design-lint/L10"
+    },
+    {
+      "id": "QF-002",
+      "source": "ai_order_design_lab_review_v1.json",
+      "scope": "C.s3",
+      "type": "geometry",
+      "feedback": "文字被り。下の図も線と枠ずれ。",
+      "rule": "Diagram labels must not collide; connectors must terminate on node/frame boundaries rather than visually missing or piercing edges.",
+      "status": "blocking",
+      "promoteTo": "design-lint/L10"
+    }
+  ],
+  "generationDefaults": {
+    "variantCount": 3,
+    "enforceMacrostructureDiversity": true,
+    "avoidRecentSilhouetteWindow": 3,
+    "fixedCanvasHtml": {
+      "width": 1600,
+      "height": 900,
+      "uniformScaleOnly": true,
+      "internalReflow": false
+    }
+  }
+}
