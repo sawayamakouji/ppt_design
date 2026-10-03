@@ -1,0 +1,76 @@
+:root {
+  --base: #F3F0E7;
+  --paper: #FAF8F2;
+  --ink: #111111;
+  --primary: #D2471D;
+  --signal: #F6B72B;
+
+  /* Contrast-safe foreground/background tokens */
+  --on-dark: #FAF8F2;
+  --on-primary: #FFF9F4;
+  --primary-deep: #C23D18;
+}
+
+/* Filled cards */
+.bgblack {
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.bgred {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+
+/* Text-heavy cards use a slightly deeper vermilion for body-copy contrast. */
+.reading-card.bgblack {
+  background: var(--ink) !important;
+  color: var(--on-dark) !important;
+  border-color: var(--ink) !important;
+}
+
+.reading-card.bgred {
+  background: var(--primary-deep) !important;
+  color: var(--on-primary) !important;
+  border-color: var(--primary-deep) !important;
+}
+
+.reading-card.bgblack .t-label:not(.yellow),
+.reading-card.bgblack .t-title,
+.reading-card.bgblack .t-small,
+.reading-card.bgblack .prose,
+.reading-card.bgblack p,
+.reading-card.bgblack strong,
+.reading-card.bgblack b {
+  color: var(--on-dark) !important;
+}
+
+.reading-card.bgblack .yellow,
+.bgblack .yellow {
+  color: var(--signal) !important;
+}
+
+.reading-card.bgred .t-label,
+.reading-card.bgred .t-title,
+.reading-card.bgred .t-small,
+.reading-card.bgred .prose,
+.reading-card.bgred p,
+.reading-card.bgred strong,
+.reading-card.bgred b {
+  color: var(--on-primary) !important;
+}
+
+/* Future pattern safety: utility classes must win over generic card backgrounds. */
+.t-box.bgblack,
+.node.bgblack {
+  background: var(--ink) !important;
+  color: var(--on-dark) !important;
+}
+
+.t-box.bgred,
+.node.bgred {
+  background: var(--primary) !important;
+  color: var(--on-primary) !important;
+  border-color: var(--primary) !important;
+}
