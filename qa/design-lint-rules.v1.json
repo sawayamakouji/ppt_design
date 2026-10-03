@@ -1,5 +1,5 @@
 {
-  "version": "1.9",
+  "version": "1.9.1",
   "profile": "PPT-DESIGN-AGENT-v1",
   "blocking": [
     "no_primary_message",
@@ -45,7 +45,7 @@
     "narrativeSequence": {"id":"L14","objectiveMustResolveToNarrativeArc":true,"detectEvidenceInterpretationOrderInversions":true,"respectSequenceLocks":true,"stableReorderOnly":true,"titleChainMustRemainFactPreserving":true,"titleBridgeMustNotStrengthenCausalStatus":true,"displayHeadlineMustReachRenderedArtifact":true,"preferActionCloseWhenArcRequiresIt":true},
     "deckLengthFit": {"id":"L15","targetSlideCountIsGuidanceNotForced":true,"preferMergeBeforeDroppingUniqueEvidence":true,"splitOverloadedStructuredPagesBeforeFontShrink":true,"dropOnlyExplicitOptionalDuplicatesAutomatically":true,"protectOpeningAndActionClose":true,"doNotMergeConflictingCausalStatus":true,"respectDeckLengthAndSequenceLocks":true,"recordEveryLengthOperation":true,"allAutomaticOperationsMustBeReversible":true,"neverInventEvidenceToFillADeck":true},
     "typographyDensityFit": {"id":"L16","minReadableFontPt":8.5,"guardBeforeRender":true,"safeAutoRaiseAllowed":true,"bodyDensityWarningRatio":0.9,"bodyDensityHardLimitRatio":1.25,"largeDisplayTitlesMayWrapIntentionally":true,"neverResolveOverloadByShrinkingBelowFloor":true,"editorialReflowActions":["shorten_copy","change_pattern","split_page","move_detail_to_appendix"]},
-    "readabilityFit": {"id":"L17","systemMetaMinPt":8.5,"kickerMinPt":10,"footnoteMinPt":9.5,"contentLabelMinPt":12,"bodyMinPt":14,"roleAwareFontFloors":true,"readabilityGuardBeforeRender":true,"safeAutoRaiseAllowed":true,"blockWhenRoleFloorWouldOverload":true,"slideTextDensityWarningVisualChars":520,"manyContentTextBoxesWarning":18,"editorialReflowActions":["shorten_copy","change_pattern","split_page","move_detail_to_appendix","diagram_first"]}
+    "readabilityFit": {"id":"L17","systemMetaMinPt":8.5,"kickerMinPt":10,"footnoteMinPt":9.5,"displayTitleMinPt":22,"contentLabelMinPt":12,"bodyMinPt":14,"displayTitleExcludedFromBodyDensityWarnings":true,"roleAwareFontFloors":true,"readabilityGuardBeforeRender":true,"safeAutoRaiseAllowed":true,"blockWhenRoleFloorWouldOverload":true,"slideTextDensityWarningVisualChars":520,"manyContentTextBoxesWarning":18,"editorialReflowActions":["shorten_copy","change_pattern","split_page","move_detail_to_appendix","diagram_first"]}
   },
   "workflow": ["brief","evidence_input","content_planner","presentation_editor","deck_length_editor","deck_director_sequence","deck_director_rhythm","reference_grammar","three_variations","human_review","resolve_design_system","design_lint","shared_scene_graph","typography_density_guard","readability_guard","render_html_ppt_golden","ppt_safe_qa"]
 }
