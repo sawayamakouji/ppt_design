@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/design-lab-review.v1.json",
+  "title": "PPT Design Lab Review v1",
+  "type": "object",
+  "required": ["generatedAt", "selections", "reviews"],
+  "properties": {
+    "generatedAt": {"type": "string"},
+    "selections": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {"enum": ["A", "B", "C", null]}
+      },
+      "additionalProperties": false
+    },
+    "reviews": {"type": "object"},
+    "manifest": {"type": "object"}
+  },
+  "additionalProperties": true
+}
