@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "profile": "PPT-SAFE-v1",
+  "autofit": {
+    "fontShrink": false,
+    "shapeGrow": false,
+    "wordWrap": true,
+    "allowOverflow": false
+  },
+  "recoveryOrder": [
+    "rewrap",
+    "shorten_copy",
+    "expand_box_within_pattern",
+    "switch_composition_mode",
+    "switch_page_pattern",
+    "shrink_to_role_minimum",
+    "fail_qa"
+  ],
+  "internalMarginsIn": {
+    "heroTitle": [0.02, 0.05],
+    "body": [0.05, 0.08],
+    "card": [0.08, 0.12],
+    "denseCard": [0.07, 0.10]
+  },
+  "densityCharGuidanceJa": {
+    "LOW": [25, 70],
+    "MED": [70, 180],
+    "HIGH": [160, 320]
+  },
+  "guards": {
+    "bodyMinPt": 11.5,
+    "labelMinPt": 8.5,
+    "maxShrinkFromDefaultPct": 20,
+    "maxPrimaryFontSizesPerSlide": 4
+  }
+}
