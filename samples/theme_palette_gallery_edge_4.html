@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edge Theme Gallery — TH11–TH14</title>
+<style>
+:root{
+  --page:#ECE8DE;
+  --ink:#0D0D0D;
+  --paper:#FAF7F0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--ink);font-family:Inter,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+.wrap{max-width:1520px;margin:auto;padding:28px}
+.hero{
+  border:3px solid var(--ink);background:var(--paper);
+  display:grid;grid-template-columns:1.35fr .65fr;margin-bottom:18px
+}
+.hero-main{padding:34px}
+.kicker{font-size:12px;font-weight:1000;letter-spacing:.14em}
+h1{font-size:clamp(48px,7vw,104px);line-height:.88;letter-spacing:-.065em;margin:12px 0 16px;font-weight:1000}
+h1 span{color:#E32219}
+.lead{font-size:18px;line-height:1.55;font-weight:800;max-width:820px}
+.hero-side{background:#111;color:#F8F5ED;padding:28px;display:flex;flex-direction:column;justify-content:space-between}
+.hero-side .big{font-size:94px;font-weight:1000;line-height:.8;letter-spacing:-.06em}
+.hero-side .big em{font-style:normal;color:#DFFF00}
+.hero-side p{font-size:13px;line-height:1.6;font-weight:700;color:#E6E0D5}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{border:3px solid var(--ink);background:#fff;overflow:hidden}
+.head{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 14px;border-bottom:2px solid var(--ink)}
+.id{background:#111;color:white;padding:5px 8px;font-size:12px;font-weight:1000}
+.name{font-size:20px;font-weight:1000}
+.use{font-size:11px;color:#6C675E;font-weight:900;text-align:right}
+.preview{aspect-ratio:16/9;padding:24px;position:relative;overflow:hidden}
+.inner{height:100%;position:relative;z-index:2}
+.tag{font-size:10px;font-weight:1000;letter-spacing:.15em}
+.title{font-size:clamp(30px,3.6vw,56px);font-weight:1000;line-height:.88;letter-spacing:-.06em}
+.copy{font-size:12px;line-height:1.5;font-weight:750}
+.box{border:2px solid currentColor;padding:12px}
+.num{font-size:clamp(42px,5vw,72px);font-weight:1000;line-height:.85;letter-spacing:-.06em}
+
+.palette{border-top:2px solid var(--ink);padding:14px}
+.swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.sw{min-height:72px;border:2px solid var(--ink);padding:8px;display:flex;flex-direction:column;justify-content:space-between}
+.sw small{font-size:8px;font-weight:1000;letter-spacing:.09em}
+.sw b{font-size:11px}
+.spec{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px;border-top:1px solid #B9B1A5;padding-top:9px}
+.spec div{font-size:9px;line-height:1.4;font-weight:800}
+.spec strong{display:block;font-size:8px;color:#6C675E;letter-spacing:.08em;margin-bottom:2px}
+
+/* TH11 Brutalist Signal */
+.th11{--bg:#F4F1E8;--fg:#0A0A0A;--a:#DFFF00;--r:#FF3B1F;--p:#FCFAF4}
+.th11 .preview{background:var(--bg);color:var(--fg)}
+.th11 .preview:before{content:"SIGNAL";position:absolute;right:-8px;top:10px;font-size:84px;font-weight:1000;color:rgba(10,10,10,.055);transform:rotate(90deg)}
+.th11 .inner{display:grid;grid-template-columns:1.25fr .75fr;gap:12px}
+.th11 .left{display:flex;flex-direction:column;justify-content:space-between}
+.th11 .right{display:grid;grid-template-rows:.8fr 1.2fr;gap:10px}
+.th11 .title{font-size:clamp(34px,4vw,62px)}
+.th11 .slash{background:var(--a);display:inline;padding:0 6px}
+.th11 .right .box:first-child{background:var(--fg);color:var(--p)}
+.th11 .right .box:last-child{background:var(--r);color:#fff;border-color:var(--r)}
+
+/* TH12 Midnight Neon */
+.th12{--bg:#090D16;--fg:#F5F7FA;--cyan:#26E6FF;--lime:#C8FF3D;--panel:#101827}
+.th12 .preview{
+  background:
+   linear-gradient(rgba(38,230,255,.08) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(38,230,255,.08) 1px,transparent 1px),
+   var(--bg);
+  background-size:28px 28px;color:var(--fg)
+}
+.th12 .preview:before{content:"AGENT NETWORK / NODE 03";position:absolute;right:20px;top:12px;color:#6CF5FF;font-size:9px;font-weight:1000;letter-spacing:.15em}
+.th12 .inner{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+.th12 .left{display:flex;flex-direction:column;justify-content:space-between}
+.th12 .title span{color:var(--cyan)}
+.th12 .right{display:flex;flex-direction:column;justify-content:flex-end;gap:10px}
+.th12 .box{background:var(--panel);border-color:#254762}
+.th12 .num{color:var(--lime)}
+.th12 .copy{color:#C9D6E2}
+
+/* TH13 Retro Editorial */
+.th13{--bg:#F2E7D2;--fg:#191714;--orange:#C94C24;--blue:#2856A8;--cream:#FFF4DF}
+.th13 .preview{background:var(--bg);color:var(--fg)}
+.th13 .preview:before{content:"1972";position:absolute;right:18px;bottom:-12px;font-size:120px;font-weight:1000;color:rgba(25,23,20,.06)}
+.th13 .inner{display:grid;grid-template-columns:.85fr 1.15fr;gap:16px}
+.th13 .year{font-size:86px;font-weight:1000;line-height:.8;color:var(--blue)}
+.th13 .left{display:flex;flex-direction:column;justify-content:space-between}
+.th13 .right{display:flex;flex-direction:column;justify-content:space-between;background:var(--orange);color:var(--cream);padding:16px}
+.th13 .title{letter-spacing:-.045em}
+.th13 .copy{max-width:90%}
+
+/* TH14 Redline Manifesto */
+.th14{--bg:#F7F5EF;--fg:#111;--red:#E32219;--paper:#FFF}
+.th14 .preview{background:var(--bg);color:var(--fg)}
+.th14 .preview:before{content:"";position:absolute;left:0;right:0;top:33%;height:18px;background:var(--red)}
+.th14 .inner{display:flex;flex-direction:column;justify-content:space-between}
+.th14 .tag{position:relative;z-index:2}
+.th14 .title{position:relative;z-index:2;font-size:clamp(36px,4.5vw,68px);max-width:90%}
+.th14 .title span{background:var(--bg);padding-right:8px}
+.th14 .bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.th14 .copy{max-width:60%}
+.th14 .stamp{background:var(--red);color:#fff;padding:8px 10px;font-size:10px;font-weight:1000;letter-spacing:.1em}
+
+.note{
+  margin-top:18px;border:3px solid var(--ink);background:#111;color:#F8F5ED;padding:18px;
+  display:grid;grid-template-columns:1.2fr .8fr;gap:20px
+}
+.note b{color:#DFFF00}
+.note p{margin:0;font-size:13px;line-height:1.6;font-weight:700}
+.note .code{font-family:ui-monospace,Consolas,monospace;color:#D9D3C9}
+
+@media(max-width:1000px){.grid{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.note{grid-template-columns:1fr}}
+@media(max-width:640px){.wrap{padding:14px}.swatches,.spec{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="hero-main">
+      <div class="kicker">SPECIAL / EDGE THEMES</div>
+      <h1>4 Themes,<br><span>More Edge.</span></h1>
+      <div class="lead">標準テーマとは別枠。毎ページ使うのではなく、章扉・重要結論・AI/未来感・企画の強い場面に限定して使う「特殊テーマ」。</div>
+    </div>
+    <aside class="hero-side">
+      <div class="big">04<em>.</em></div>
+      <p>TH11 Brutalist Signal / TH12 Midnight Neon / TH13 Retro Editorial / TH14 Redline Manifesto</p>
+    </aside>
+  </section>
+
+  <section class="grid">
+    <article class="card th11">
+      <div class="head"><div><span class="id">TH11</span> <span class="name">Brutalist Signal</span></div><div class="use">変革宣言 / 新規構想 / AI</div></div>
+      <div class="preview">
+        <div class="inner">
+          <div class="left">
+            <div><div class="tag">RE-DESIGN / 01</div><div class="title">AI <span class="slash">DOES NOT</span><br>DECIDE.</div></div>
+            <div class="copy">AIは判断を奪わない。判断材料を整理し、現場が動ける状態をつくる。</div>
+          </div>
+          <div class="right">
+            <div class="box"><div class="tag">SIGNAL</div><div class="num">01</div></div>
+            <div class="box"><div class="tag">ACTION</div><div class="copy">大胆な色面・太線・ズレで視線を止める。</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="palette">
+        <div class="swatches">
+          <div class="sw" style="background:#F4F1E8"><small>BASE</small><b>#F4F1E8</b></div>
+          <div class="sw" style="background:#0A0A0A;color:white"><small>INK</small><b>#0A0A0A</b></div>
+          <div class="sw" style="background:#DFFF00"><small>ACID</small><b>#DFFF00</b></div>
+          <div class="sw" style="background:#FF3B1F;color:white"><small>RED</small><b>#FF3B1F</b></div>
+          <div class="sw" style="background:#FCFAF4"><small>PAPER</small><b>#FCFAF4</b></div>
+        </div>
+        <div class="spec"><div><strong>TYPE</strong>Ultra Bold</div><div><strong>GRID</strong>Broken</div><div><strong>SHAPE</strong>Raw</div><div><strong>TEXTURE</strong>Poster</div><div><strong>TONE</strong>Aggressive</div></div>
+      </div>
+    </article>
+
+    <article class="card th12">
+      <div class="head"><div><span class="id">TH12</span> <span class="name">Midnight Neon</span></div><div class="use">Agent / Cloud / Future</div></div>
+      <div class="preview">
+        <div class="inner">
+          <div class="left">
+            <div><div class="tag">SYSTEM / AGENT</div><div class="title">ORCHESTRATE<br><span>EVERYTHING.</span></div></div>
+            <div class="copy">複数エージェント・データ・ワークフローがひとつの制御レイヤーでつながる。</div>
+          </div>
+          <div class="right">
+            <div class="box"><div class="tag">LATENCY</div><div class="num">24ms</div></div>
+            <div class="box"><div class="tag">STATUS</div><div class="copy">ACTIVE / 06 NODES</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="palette">
+        <div class="swatches">
+          <div class="sw" style="background:#090D16;color:white"><small>BASE</small><b>#090D16</b></div>
+          <div class="sw" style="background:#F5F7FA"><small>TEXT</small><b>#F5F7FA</b></div>
+          <div class="sw" style="background:#26E6FF"><small>CYAN</small><b>#26E6FF</b></div>
+          <div class="sw" style="background:#C8FF3D"><small>LIME</small><b>#C8FF3D</b></div>
+          <div class="sw" style="background:#101827;color:white"><small>PANEL</small><b>#101827</b></div>
+        </div>
+        <div class="spec"><div><strong>TYPE</strong>Tech Bold</div><div><strong>GRID</strong>Digital</div><div><strong>SHAPE</strong>Modular</div><div><strong>TEXTURE</strong>Glow</div><div><strong>TONE</strong>Futuristic</div></div>
+      </div>
+    </article>
+
+    <article class="card th13">
+      <div class="head"><div><span class="id">TH13</span> <span class="name">Retro Editorial</span></div><div class="use">企画 / ブランド / ストーリー</div></div>
+      <div class="preview">
+        <div class="inner">
+          <div class="left">
+            <div class="tag">WORK / RE-DESIGNED</div>
+            <div class="year">2027</div>
+            <div class="copy">企業広告や古い科学雑誌のような、少し懐かしく強い編集デザイン。</div>
+          </div>
+          <div class="right">
+            <div class="title">仕事の<br>つくり方を、<br>変える。</div>
+            <div class="copy">大胆な色面と年号、太いタイポでストーリーをつくる。</div>
+          </div>
+        </div>
+      </div>
+      <div class="palette">
+        <div class="swatches">
+          <div class="sw" style="background:#F2E7D2"><small>BASE</small><b>#F2E7D2</b></div>
+          <div class="sw" style="background:#191714;color:white"><small>INK</small><b>#191714</b></div>
+          <div class="sw" style="background:#C94C24;color:white"><small>ORANGE</small><b>#C94C24</b></div>
+          <div class="sw" style="background:#2856A8;color:white"><small>COBALT</small><b>#2856A8</b></div>
+          <div class="sw" style="background:#FFF4DF"><small>CREAM</small><b>#FFF4DF</b></div>
+        </div>
+        <div class="spec"><div><strong>TYPE</strong>Bold Grotesk</div><div><strong>GRID</strong>Editorial</div><div><strong>SHAPE</strong>Color Blocks</div><div><strong>TEXTURE</strong>Print</div><div><strong>TONE</strong>Expressive</div></div>
+      </div>
+    </article>
+
+    <article class="card th14">
+      <div class="head"><div><span class="id">TH14</span> <span class="name">Redline Manifesto</span></div><div class="use">章扉 / 最重要結論 / 意思決定</div></div>
+      <div class="preview">
+        <div class="inner">
+          <div class="tag">MANIFESTO / DECISION</div>
+          <div class="title"><span>いま、業務の</span><br><span>前提を変える。</span></div>
+          <div class="bottom">
+            <div class="copy">常用せず、資料中の2〜3枚だけ。ページ全体を「宣言」にする。</div>
+            <div class="stamp">DECIDE TODAY</div>
+          </div>
+        </div>
+      </div>
+      <div class="palette">
+        <div class="swatches">
+          <div class="sw" style="background:#F7F5EF"><small>BASE</small><b>#F7F5EF</b></div>
+          <div class="sw" style="background:#111;color:white"><small>INK</small><b>#111111</b></div>
+          <div class="sw" style="background:#E32219;color:white"><small>RED</small><b>#E32219</b></div>
+          <div class="sw" style="background:#FFFFFF"><small>WHITE</small><b>#FFFFFF</b></div>
+          <div class="sw" style="background:#D9D4CA"><small>LINE</small><b>#D9D4CA</b></div>
+        </div>
+        <div class="spec"><div><strong>TYPE</strong>Massive Sans</div><div><strong>GRID</strong>Extreme</div><div><strong>SHAPE</strong>Line-led</div><div><strong>TEXTURE</strong>None</div><div><strong>TONE</strong>Manifesto</div></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="note">
+    <p><b>Themeは「人格」だけ。</b><br>フォントサイズ差・配置の均等さ・余白の密度はここに混ぜず、別の <b>Composition Mode</b> 軸として分離する。</p>
+    <p class="code">例：ED08-C / MED / TH12 / CM03</p>
+  </section>
+</div>
+</body>
+</html>
