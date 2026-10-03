@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+  "profile": "BRIEF-RESOLVER-RULES-v1",
+  "defaults": {
+    "audience": "general",
+    "objective": "explain",
+    "slideCount": 6,
+    "density": "MED",
+    "dataEmphasis": "MED",
+    "novelty": "MED",
+    "medium": "both",
+    "language": "ja-JP"
+  },
+  "directions": {
+    "A": {
+      "label": "Editorial Executive",
+      "intent": "結論と余白を優先。役員・意思決定向け。",
+      "theme": "TH01",
+      "composition": "CM02",
+      "rolePatterns": {
+        "opening": "ED01-A", "message": "ED02-A", "kpi": "ED03-B", "data": "ED08-C",
+        "diagnosis": "ED06-B", "compare": "ED05-D", "points": "ED04-B", "flow": "ED07-A",
+        "timeline": "ED10-D", "action": "ED11-C", "evidence": "ED12-A"
+      }
+    },
+    "B": {
+      "label": "Data First",
+      "intent": "数値と比較を優先。分析報告・定量レビュー向け。",
+      "theme": "TH10",
+      "composition": "CM03",
+      "rolePatterns": {
+        "opening": "ED01-C", "message": "ED03-A", "kpi": "ED03-D", "data": "ED08-B",
+        "diagnosis": "ED09-A", "compare": "ED05-B", "points": "ED04-A", "flow": "ED07-B",
+        "timeline": "ED10-C", "action": "ED11-B", "evidence": "ED12-E"
+      }
+    },
+    "C": {
+      "label": "Technical System",
+      "intent": "構造と仕組みを優先。AI・Cloud・運用設計向け。",
+      "theme": "TH05",
+      "composition": "CM02",
+      "rolePatterns": {
+        "opening": "ED01-D", "message": "ED02-C", "kpi": "ED03-E", "data": "ED08-F",
+        "diagnosis": "ED06-D", "compare": "ED09-C", "points": "ED04-C", "flow": "ED07-E",
+        "timeline": "ED10-B", "action": "ED11-D", "evidence": "ED12-B"
+      }
+    }
+  },
+  "storyTemplates": {
+    "approval": ["opening", "message", "diagnosis", "points", "timeline", "action"],
+    "proposal": ["opening", "message", "diagnosis", "compare", "timeline", "action"],
+    "report": ["opening", "kpi", "data", "diagnosis", "compare", "action"],
+    "analysis": ["opening", "kpi", "data", "diagnosis", "compare", "action"],
+    "explain": ["opening", "message", "points", "flow", "timeline", "action"],
+    "training": ["opening", "message", "points", "flow", "timeline", "evidence"]
+  },
+  "selection": {
+    "executive": {"preferredDirection": "A"},
+    "technical": {"preferredDirection": "C"},
+    "dataHigh": {"preferredDirection": "B"}
+  }
+}
