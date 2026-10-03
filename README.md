@@ -19,8 +19,6 @@ Presentation design system repository for the **Editorial 90/8/2** style.
 
 ## Slide pattern IDs
 
-Pattern IDs use the following convention:
-
 - `ED01-*` HERO / opening
 - `ED02-*` ONE MESSAGE
 - `ED03-*` KEY NUMBER
@@ -36,11 +34,9 @@ Pattern IDs use the following convention:
 
 Example instruction:
 
-> `ED08-C / MED / TH01 / CM02 / PPT-SAFE-v1`
+> `ED08-C / MED / TH01 / CM02 / PPT-SAFE-v1.2`
 
 ## Text density
-
-Each pattern can also be described with a text-density level:
 
 - `LOW` — cover pages, strong messages, single KPI
 - `MED` — analysis, comparison, roadmaps
@@ -52,25 +48,56 @@ Principle:
 
 ## PowerPoint rendering layer
 
-PowerPoint uses an additional compatibility profile: **`PPT-SAFE-v1`**.
+Current compatibility profile: **`PPT-SAFE-v1.2`**.
 
-It fixes the four main sources of HTML → PPT drift:
+The rendering layer controls:
 
-1. font mapping and fallback rules
-2. deterministic text fitting instead of endless font shrinking
-3. chart rendering mode (`CHART-NATIVE` / `CHART-SHAPE`)
-4. regression QA using render / compare / fix loops
+1. font mapping and fallback
+2. deterministic text fitting
+3. chart mode (`CHART-NATIVE` / `CHART-SHAPE`)
+4. foreground/background contrast
+5. regression QA
+6. shared HTML/PPT geometry
+
+### v1.2 architecture
+
+Production patterns no longer maintain separate HTML and PowerPoint layout logic.
+
+`Page Pattern × Text Density × Theme × Composition`
+
+→ **resolved shared scene graph**
+
+→ HTML renderer / PowerPoint renderer
+
+→ Regression QA
+
+The scene graph owns explicit text boxes, rectangles, lines, ellipses, chart bars, labels, callouts, and connector coordinates. Renderer backends should remain thin.
+
+This prevents the classic failure mode where an HTML design is correct but the separately coded PowerPoint version slowly drifts.
+
+### Current regression result
+
+Using the same deterministic QA pipeline for both versions:
+
+- PPT-SAFE v1.1 average SSIM: **0.9053**
+- PPT-SAFE v1.2 average SSIM: **0.9287**
+- improvement: **+0.0234**
+- v1.2 gate `>= 0.92`: **PASS**
+- overflow test: **PASS**
+
+The annotated `ED08-C` Data Story improved from `0.8933` to `0.9211` by moving its chart annotation geometry into the shared scene graph.
 
 Canonical files:
 
-- `docs/PPT_RENDERING_SPEC_V1.md`
+- `docs/PPT_RENDERING_SPEC_V1_2.md`
+- `renderers/SHARED_SCENE_GRAPH_V1_2.md`
 - `tokens/ppt-font-rules.v1.json`
 - `tokens/ppt-text-fit.v1.json`
 - `tokens/ppt-chart-rules.v1.json`
+- `tokens/ppt_render_metrics.v1.2.json`
+- `qa/PPT_SAFE_V1_2_RESULTS.md`
 - `qa/ppt-regression-rules.v1.json`
-- `samples/ppt-rendering-spec-v1.html`
-
-Current first-deck baseline: average raster SSIM **0.897**, overflow **PASS**. The v1 target is deck-average SSIM `>= 0.90`, with a stretch target of `0.92+`, while keeping PowerPoint content editable.
+- `qa/compare_rendered_slides.py`
 
 ## Repository structure
 
@@ -82,7 +109,7 @@ ppt_design/
 ├─ themes/         # Theme palettes / visual identities
 ├─ composition/    # CM01 / CM02 / CM03 composition modes
 ├─ tokens/         # Color, typography, spacing, PPT-safe rendering tokens
-├─ renderers/      # HTML / PPTX renderer implementation
+├─ renderers/      # Shared scene graph / HTML / PPT renderer design
 ├─ qa/             # Regression and visual QA rules
 ├─ pptx/           # Editable PowerPoint examples
 └─ docs/           # Design rules and authoring guidance
