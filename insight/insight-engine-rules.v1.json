@@ -1,0 +1,31 @@
+{
+  "version":"1.0",
+  "profile":"INSIGHT-ENGINE-RULES-v1",
+  "thresholds":{
+    "minTimePoints":4,
+    "minCorrelationN":8,
+    "correlationAbsR":0.45,
+    "robustZ":3.25,
+    "changePointMinSide":3,
+    "changePointEffect":0.8,
+    "concentrationTop20Share":0.45,
+    "concentrationHHI":0.15,
+    "concentrationGini":0.35,
+    "segmentGapRelative":0.15
+  },
+  "scoreWeights":{
+    "effect":0.48,
+    "confidence":0.32,
+    "coverage":0.20
+  },
+  "maxInsights":40,
+  "maxInsightFacts":12,
+  "additiveMetricRegex":"(sales|amount|revenue|profit|gross|qty|quantity|count|receipts|売上|荒利|粗利|金額|数量|点数|件数)",
+  "segmentDimensionRegex":"(area|region|segment|group|format|zone|エリア|地区|地域|業態|セグメント|グループ|部門|カテゴリ)",
+  "guardrails":[
+    "correlation is association, not causation",
+    "small-n findings are downgraded",
+    "sample/illustrative inputs stay explicitly marked",
+    "action recommendations are not inferred from statistics alone"
+  ]
+}

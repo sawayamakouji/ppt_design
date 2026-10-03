@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "profile": "BRIEF-v1",
+  "title": "月次 業務改革効果レビュー",
+  "topic": "店舗運用KPIの変化と重点課題",
+  "audience": "executive",
+  "objective": "report",
+  "slideCount": 6,
+  "density": "MED",
+  "dataEmphasis": "HIGH",
+  "novelty": "MED",
+  "medium": "both",
+  "language": "ja-JP",
+  "tone": ["business", "clear"],
+  "constraints": ["根拠のない因果表現はしない", "数値はサンプルとして扱う"],
+  "content": {
+    "lead": "月次KPIと店舗差から、次に深掘りすべき論点を整理する。"
+  }
+}
