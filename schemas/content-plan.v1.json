@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/content-plan.v1.json",
+  "title": "Content Plan v1",
+  "type": "object",
+  "required": ["profile","slides"],
+  "properties": {
+    "version":{"type":"string"},
+    "profile":{"const":"CONTENT-PLAN-v1"},
+    "brief":{"type":"object"},
+    "sourceSummary":{"type":"object"},
+    "slides":{"type":"array","items":{"type":"object","required":["id","role","status"],"properties":{"id":{"type":"string"},"role":{"type":"string"},"status":{"enum":["grounded","structural","unresolved"]},"primaryMessage":{"type":"string"},"evidence":{"type":"array"},"visual":{"type":"object"},"sourceRefs":{"type":"array","items":{"type":"string"}},"confidence":{"type":"number","minimum":0,"maximum":1},"warnings":{"type":"array","items":{"type":"string"}},"alternatives":{"type":"array"}}}},
+    "briefPatch":{"type":"object"},
+    "candidateCatalog":{"type":"array"}
+  }
+}
