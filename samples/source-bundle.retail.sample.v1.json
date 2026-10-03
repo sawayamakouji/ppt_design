@@ -1,0 +1,51 @@
+{
+  "version":"1.0",
+  "profile":"SOURCE-BUNDLE-v1",
+  "metadata":{"title":"Retail Ordering Sample","sample":true,"note":"All values are illustrative sample data for planner QA."},
+  "facts":[
+    {"id":"f1","label":"導入店舗","value":24,"displayValue":"24店","sourceRefs":["sample:summary"],"confidence":1},
+    {"id":"f2","label":"修正あり率","value":18.4,"displayValue":"18.4%","sourceRefs":["sample:summary"],"confidence":1},
+    {"id":"f3","label":"売変率","value":5.4,"displayValue":"5.4%","comparison":{"label":"導入前 6.1%","baselineValue":6.1,"baselineDisplay":"6.1%","deltaValue":-0.7,"deltaDisplay":"▲0.7pt"},"sourceRefs":["sample:summary"],"confidence":1},
+    {"id":"f4","label":"在庫日数","value":12.8,"displayValue":"12.8日","comparison":{"label":"前月 13.6日","baselineValue":13.6,"baselineDisplay":"13.6日","deltaValue":-0.8,"deltaDisplay":"▲0.8日"},"sourceRefs":["sample:summary"],"confidence":1}
+  ],
+  "tables":[
+    {
+      "id":"monthly_trend","title":"月次KPI推移","grain":"month",
+      "columns":[
+        {"name":"month","label":"月","type":"date","semantic":"time"},
+        {"name":"markdown_rate","label":"売変率","type":"number","semantic":"metric","unit":"%","aggregation":"avg"},
+        {"name":"inventory_days","label":"在庫日数","type":"number","semantic":"metric","unit":"日","aggregation":"avg"},
+        {"name":"sales_index","label":"売上指数","type":"number","semantic":"metric","aggregation":"avg"}
+      ],
+      "rows":[
+        {"month":"2026-04","markdown_rate":6.1,"inventory_days":13.8,"sales_index":100},
+        {"month":"2026-05","markdown_rate":5.9,"inventory_days":13.5,"sales_index":101},
+        {"month":"2026-06","markdown_rate":5.8,"inventory_days":13.2,"sales_index":103},
+        {"month":"2026-07","markdown_rate":5.6,"inventory_days":13.0,"sales_index":104},
+        {"month":"2026-08","markdown_rate":5.5,"inventory_days":12.9,"sales_index":105},
+        {"month":"2026-09","markdown_rate":5.4,"inventory_days":12.8,"sales_index":106}
+      ],
+      "provenance":{"kind":"sample","ref":"sample:monthly_trend"},"sample":true
+    },
+    {
+      "id":"store_performance","title":"店舗別KPI","grain":"store",
+      "columns":[
+        {"name":"store","label":"店舗","type":"string","semantic":"dimension"},
+        {"name":"correction_rate","label":"修正率","type":"number","semantic":"metric","unit":"%","aggregation":"avg"},
+        {"name":"markdown_delta_pt","label":"売変率前年差","type":"number","semantic":"metric","unit":"pt","aggregation":"avg"},
+        {"name":"inventory_days","label":"在庫日数","type":"number","semantic":"metric","unit":"日","aggregation":"avg"}
+      ],
+      "rows":[
+        {"store":"A店","correction_rate":12.1,"markdown_delta_pt":-1.2,"inventory_days":11.3},
+        {"store":"B店","correction_rate":15.4,"markdown_delta_pt":-0.9,"inventory_days":12.2},
+        {"store":"C店","correction_rate":17.8,"markdown_delta_pt":-0.4,"inventory_days":12.8},
+        {"store":"D店","correction_rate":19.1,"markdown_delta_pt":0.1,"inventory_days":13.4},
+        {"store":"E店","correction_rate":21.6,"markdown_delta_pt":0.3,"inventory_days":14.1},
+        {"store":"F店","correction_rate":24.2,"markdown_delta_pt":0.6,"inventory_days":14.6},
+        {"store":"G店","correction_rate":27.0,"markdown_delta_pt":1.1,"inventory_days":15.0},
+        {"store":"H店","correction_rate":29.4,"markdown_delta_pt":1.4,"inventory_days":15.8}
+      ],
+      "provenance":{"kind":"sample","ref":"sample:store_performance"},"sample":true
+    }
+  ]
+}
