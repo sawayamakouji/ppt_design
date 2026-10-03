@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+const fs=require('fs');
+const sourcePath=process.argv[2], driverPath=process.argv[3], output=process.argv[4]||'/mnt/data/source-bundle.with-drivers.v1.json';
+if(!sourcePath||!driverPath){console.error('usage: node enrich_source_bundle_with_drivers.js source.json driver.json [output.json]');process.exit(2)}
+const s=JSON.parse(fs.readFileSync(sourcePath,'utf8')),d=JSON.parse(fs.readFileSync(driverPath,'utf8'));
+if(s.profile!=='SOURCE-BUNDLE-v1'||d.profile!=='DRIVER-BUNDLE-v1')throw new Error('invalid profile');
+const derived=(d.drivers||[]).slice(0,12).map(x=>({id:`driver:${x.id}`,label:x.title,value:x.effect??x.share??x.score,displayValue:x.message,tags:['driver',x.type,x.causalStatus],sourceRefs:x.sourceRefs,confidence:x.confidence}));
+const rows=(d.drivers||[]).slice(0,20).map(x=>({driver_id:x.id,type:x.type,title:x.title,score:x.score,confidence:x.confidence,causal_status:x.causalStatus,message:x.message,dimension:x.dimension||'',driver_metric:x.driverMetric||'',share:x.share??null,effect:x.effect??null}));
+const out={...s,metadata:{...(s.metadata||{}),driverBundleProfile:d.profile,driverTarget:d.target},facts:[...(s.facts||[]),...derived],tables:[...(s.tables||[]),{id:'derived_driver_candidates',title:'Driver Explorer candidates',grain:'driver_candidate',columns:[{name:'driver_id',type:'string',semantic:'id'},{name:'type',type:'string',semantic:'dimension'},{name:'title',type:'string',semantic:'text'},{name:'score',type:'number',semantic:'metric'},{name:'confidence',type:'number',semantic:'metric'},{name:'causal_status',type:'string',semantic:'dimension'},{name:'message',type:'string',semantic:'text'},{name:'dimension',type:'string',semantic:'dimension'},{name:'driver_metric',type:'string',semantic:'dimension'},{name:'share',type:'number',semantic:'metric'},{name:'effect',type:'number',semantic:'metric'}],rows,provenance:{kind:'derived',ref:'driver-bundle-v1'},sample:!!s.metadata?.sample}]};
+fs.writeFileSync(output,JSON.stringify(out,null,2),'utf8');console.log(output);
