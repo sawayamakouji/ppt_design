@@ -112,6 +112,27 @@ node qa/test_golden_benchmark_v1.js
 
 See `docs/GOLDEN_BENCHMARK_SUITE_V1.md`.
 
+### Visual QA / CI
+
+`.github/workflows/golden-benchmark-ci.yml` runs the benchmark on pull requests and `main`.
+
+It performs:
+
+- corpus contract validation
+- Pattern Deck -> Scene Deck resolution
+- Scene Graph bounds / geometry QA
+- fixed-canvas HTML generation
+- editable PPTX generation
+- LibreOffice PDF + PNG rendering
+- page-count integrity checks
+- PR render vs base-branch visual comparison
+- Markdown / JSON regression reports
+- CI artifact upload
+
+`candidate-golden` visual changes are reported but do not block. Once a deck is explicitly promoted to `golden`, visual drift above the configured threshold becomes blocking.
+
+See `docs/VISUAL_QA_CI_V1.md`.
+
 Canonical files:
 
 - `docs/PRESENTATION_EDITOR_V1.md`
@@ -125,6 +146,10 @@ Canonical files:
 - `benchmarks/golden-v1/manifest.v1.json`
 - `benchmarks/golden-v1/evaluation-rubric.v1.json`
 - `qa/test_golden_benchmark_v1.js`
+- `qa/run_golden_benchmark_pipeline_v1.js`
+- `qa/validate_scene_deck_v1.js`
+- `qa/compare_benchmark_renders_v1.py`
+- `docs/VISUAL_QA_CI_V1.md`
 - `docs/CONTENT_PLANNER_V1.md`
 - `docs/BRIEF_RESOLVER_V1.md`
 - `docs/PATTERN_RESOLVER_V1.md`
@@ -178,6 +203,7 @@ The current Linux/LibreOffice environment is treated as a compatibility stress t
 ```text
 ppt_design/
 ├─ README.md
+├─ .github/        # GitHub Actions visual regression workflow
 ├─ benchmarks/     # Golden benchmark regression corpus
 ├─ samples/        # HTML design-system, deterministic plans and slide-pattern playgrounds
 ├─ patterns/       # Pattern definitions / IDs / metadata
