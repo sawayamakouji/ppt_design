@@ -12,7 +12,7 @@ const brief=JSON.parse(fs.readFileSync(input,'utf8'));
 if(brief.profile!=='BRIEF-v1')throw new Error('profile must be BRIEF-v1');
 const rulesPath=path.resolve(__dirname,'../brief/brief-resolver-rules.v1.json');
 const rules=JSON.parse(fs.readFileSync(rulesPath,'utf8'));
-const patternResolver=path.resolve(__dirname,'resolve_pattern_deck_to_scene.js');
+const patternResolver=path.resolve(__dirname,'resolve_pattern_deck_to_scene_semantic.js');
 
 const THEMES={
  TH01:{bg:'F3F0E7',ink:'111111',accent:'D2471D',signal:'F6B72B',paper:'FAF8F2',muted:'6C675E'},
@@ -33,7 +33,22 @@ function storyFor(b){
   let i=0;while(base.length<n){base.splice(base.length-1,0,extras[i++%extras.length])}
   return base.slice(0,n);
 }
-function m(i){const ms=brief.content?.metrics||[];return ms[i]||{value:i===0?'—':String(i+1),label:'KPI'}}
+function m(i){
+  const ms=brief.content?.metrics||[];const raw=ms[i]||{value:i===0?'—':String(i+1),label:'KPI'};
+  let value=String(raw.value??'—').trim(), label=String(raw.label??'KPI').trim();
+  // KPI primary values must be compact tokens, never prose. Upstream should provide
+  // structured values; this is a final fail-safe against raw sentence injection.
+  if(value.length>24 || /[。！？]/.test(value)){
+    const rToken=value.match(/r\s*=\s*[+-]?\d+(?:\.\d+)?/i)?.[0];
+    const amountToken=value.match(/[+-]?\d+(?:\.\d+)?(?:百万円|万円|円|pt|日|店|件|人)/)?.[0];
+    const pctToken=value.match(/[+-]?\d+(?:\.\d+)?%/)?.[0];
+    if(/関連|相関/.test(label)&&rToken)value=rToken.replace(/\s+/g,'');
+    else if(/集中|構成比|比率/.test(label)&&pctToken)value=pctToken;
+    else value=amountToken||pctToken||rToken?.replace(/\s+/g,'')||'—';
+  }
+  if(label.length>24)label=label.slice(0,23)+'…';
+  return {...raw,value,label};
+}
 function p(i){const ps=brief.content?.points||[];return ps[i]||{title:`POINT ${i+1}`,text:'要点を具体化'} }
 function safeObj(v, fallback){if(typeof v==='string')return{title:v,text:''};return v||fallback}
 function contentFor(role, pattern, idx, dir){
@@ -63,7 +78,7 @@ function contentFor(role, pattern, idx, dir){
   }
   if(role==='compare'){
     if(fam==='ED09')return{kicker:'COMPARE',title:'優先順位を2軸で決める',xLabel:'難易度 →',yLabel:'効果',highlight:'TR',quadrants:[{title:'観察',text:'小 / 易'},{title:'最優先',text:'大 / 易'},{title:'保留',text:'小 / 難'},{title:'大型',text:'大 / 難'}]};
-    return{kicker:'COMPARE',title:'現状から目指す姿へ',current:safeObj(c.current,{label:'CURRENT',title:'現状',text:'個別作業'}),ideal:safeObj(c.ideal,{label:'IDEAL',title:'目指す姿',text:'共通基盤'}),left:safeObj(c.current,{title:'現状',text:''}),right:safeObj(c.ideal,{title:'目指す姿',text:''}),gap:'SYSTEM GAP'};
+    return{kicker:'COMPARE',title:c.compareTitle||'現状から目指す姿へ',current:safeObj(c.current,{label:'CURRENT',title:'現状',text:'個別作業'}),ideal:safeObj(c.ideal,{label:'IDEAL',title:'目指す姿',text:'共通基盤'}),left:safeObj(c.current,{title:'現状',text:''}),right:safeObj(c.ideal,{title:'目指す姿',text:''}),gap:c.gap||'SYSTEM GAP'};
   }
   if(role==='points'){const defaults=['共通ルールと共通データを整える','短いサイクルでPoCを回す','成功パターンを運用へ定着させる'];const ps=[p(0),p(1),p(2)].map((x,i)=>({...x,text:x.text||defaults[i]}));return{kicker:'THREE POINTS',title:'実行の3本柱',items:ps};}
   if(role==='flow')return{kicker:'FLOW',title:'人・データ・AIの役割を分ける',stages:(c.stages||[]).length>=3?c.stages:[{role:'DATA',step:'取得',output:'trusted data'},{role:'AGENT',step:'分析',output:'draft'},{role:'HUMAN',step:'判断',output:'approved'}]};

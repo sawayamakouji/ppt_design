@@ -18,6 +18,8 @@ const dateKey=v=>{const t=Date.parse(String(v));return Number.isFinite(t)?t:Stri
 const unique=a=>[...new Set(a)];
 const labelOf=c=>c.label||c.name;
 const sourceRefFor=t=>t.provenance?.ref||t.provenance?.query||t.id;
+const targetMetric=brief.analysisTarget?.metric||'';
+const isPresentationEligible=t=>t.presentationEligible!==false && t.provenance?.kind!=='derived_system';
 
 function story(){
   const base=[...(rules.storyTemplates[brief.objective]||rules.storyTemplates.explain)];
@@ -33,10 +35,10 @@ const candidates=[];
 function add(c){c.id=c.id||`c${candidates.length+1}`;c.quality=c.quality??0.75;c.sourceRefs=unique(c.sourceRefs||[]);candidates.push(c)}
 
 for(const f of bundle.facts||[]){
-  add({kind:'fact',title:f.label,message:`${f.label}: ${dispFact(f)}`,fact:f,quality:f.confidence??0.95,sourceRefs:f.sourceRefs||[]});
+  add({kind:'fact',title:f.label,message:`${f.label}: ${dispFact(f)}`,fact:f,quality:f.confidence??0.95,sourceRefs:f.sourceRefs||[],tags:f.tags||[],presentationKind:f.presentationKind||'',detail:f.detail||''});
   if(f.comparison && (f.comparison.deltaDisplay!=null || f.comparison.deltaValue!=null || f.comparison.baselineValue!=null)){
     const delta=f.comparison.deltaDisplay ?? (f.comparison.deltaValue!=null?String(f.comparison.deltaValue):'');
-    add({kind:'delta',title:f.label,message:`${f.label}: ${dispFact(f)}${delta?`（${f.comparison.label||'比較'} ${delta}）`:''}`,fact:f,quality:f.confidence??0.96,sourceRefs:f.sourceRefs||[]});
+    add({kind:'delta',title:f.label,message:`${f.label}: ${dispFact(f)}${delta?`（${f.comparison.label||'比較'} ${delta}）`:''}`,fact:f,quality:f.confidence??0.96,sourceRefs:f.sourceRefs||[],tags:f.tags||[],presentationKind:f.presentationKind||'',detail:f.detail||''});
   }
 }
 
@@ -52,16 +54,18 @@ for(const t of bundle.tables||[]){
   const dims=cols.filter(c=>(c.semantic==='dimension'||c.type==='string')&&c.semantic!=='id'&&(!time||c.name!==time.name));
   const nums=cols.filter(c=>c.type==='number'||c.semantic==='metric');
   const sref=sourceRefFor(t);
-  if(time){
+  if(time && isPresentationEligible(t)){
     for(const m of nums){
-      const pts=rows.map(r=>({x:r[time.name],y:toNum(r[m.name])})).filter(p=>p.x!=null&&p.y!=null).sort((a,b)=>dateKey(a.x)>dateKey(b.x)?1:-1);
+      const aggName=m.aggregation&&m.aggregation!=='none'?m.aggregation:'avg';
+      const grouped=aggregateBy(rows,time.name,m.name,aggName).filter(x=>x.key!=='').sort((a,b)=>dateKey(a.key)>dateKey(b.key)?1:-1);
+      const pts=grouped.map(x=>({x:x.key,y:x.value}));
       if(pts.length>=3){
         const first=pts[0],last=pts[pts.length-1],delta=last.y-first.y;
         add({kind:'trend',title:`${labelOf(m)} trend`,message:`${labelOf(m)} は ${first.x} → ${last.x} で ${delta>=0?'+':''}${fmt(delta,2)}${m.unit||''}`,tableId:t.id,field:m.name,timeField:time.name,points:pts,unit:m.unit||'',quality:Math.min(.94,.65+pts.length/50),sourceRefs:[sref],sample:!!t.sample});
       }
     }
   }
-  if(dims.length){
+  if(dims.length && isPresentationEligible(t)){
     const d=dims[0];
     for(const m of nums){
       const agg=aggregateBy(rows,d.name,m.name,m.aggregation||'avg').filter(x=>x.key!=='');
@@ -71,13 +75,13 @@ for(const t of bundle.tables||[]){
       }
     }
   }
-  if(nums.length>=2 && rows.length>=6){
+  if(isPresentationEligible(t) && nums.length>=2 && rows.length>=6){
     for(let i=0;i<nums.length;i++)for(let j=i+1;j<nums.length;j++){
       const a=[],b=[];for(const r of rows){const x=toNum(r[nums[i].name]),y=toNum(r[nums[j].name]);if(x!=null&&y!=null){a.push(x);b.push(y)}}
       if(a.length>=6){const r=pearson(a,b);if(Number.isFinite(r))add({kind:'correlation',title:`${labelOf(nums[i])} × ${labelOf(nums[j])}`,message:`${labelOf(nums[i])} と ${labelOf(nums[j])} の相関 r=${fmt(r,2)}`,tableId:t.id,xField:nums[i].name,yField:nums[j].name,r,quality:Math.min(.9,.58+a.length/60),sourceRefs:[sref],sample:!!t.sample});}
     }
   }
-  if(rows.length){
+  if(isPresentationEligible(t) && rows.length){
     add({kind:'table',title:t.title||t.id,message:`${t.title||t.id}: ${rows.length} rows`,tableId:t.id,columns:cols.map(c=>c.name),rows:rows.slice(0,12),quality:.8,sourceRefs:[sref],sample:!!t.sample});
   }
 }
@@ -98,7 +102,9 @@ function score(c,role){
   const base=rules.roleTypeScores[role]?.[c.kind]??0;
   const v=visualFor(c);const reuse=(used.get(c.id)||0)*Number(rules.reusePenalty||0);const unsupported=v.supported?0:Number(rules.unsupportedVisualPenalty||0);
   const samplePenalty=c.sample?8:0;
-  return base + c.quality*20 - reuse - unsupported - samplePenalty;
+  const targetBoost=targetMetric && (c.field===targetMetric || c.fact?.tags?.includes?.(targetMetric) || c.title?.includes?.(brief.analysisTarget?.label||'__NO_LABEL__')) ? 24 : 0;
+  const driverBoost=(c.tags||[]).includes('driver') && ['kpi','diagnosis','compare'].includes(role) ? 10 : 0;
+  return base + c.quality*20 + targetBoost + driverBoost - reuse - unsupported - samplePenalty;
 }
 function choose(role, allowUnsupported=false){
   const ranked=candidates.map(c=>({c,score:score(c,role),visual:visualFor(c)})).filter(x=>allowUnsupported||x.visual.supported).sort((a,b)=>b.score-a.score);
@@ -110,7 +116,7 @@ function choose(role, allowUnsupported=false){
 
 function evidenceObj(c){
   if(!c)return null;
-  if(c.kind==='fact'||c.kind==='delta')return{kind:c.kind,title:c.title,message:c.message,value:dispFact(c.fact),comparison:c.fact.comparison||null,sourceRefs:c.sourceRefs};
+  if(c.kind==='fact'||c.kind==='delta')return{kind:c.kind,title:c.title,message:c.message,value:dispFact(c.fact),comparison:c.fact.comparison||null,detail:c.fact.detail||c.detail||'',presentationKind:c.fact.presentationKind||c.presentationKind||'',sourceRefs:c.sourceRefs};
   if(c.kind==='trend')return{kind:c.kind,title:c.title,message:c.message,field:c.field,timeField:c.timeField,points:c.points,unit:c.unit,sourceRefs:c.sourceRefs};
   if(c.kind==='ranking')return{kind:c.kind,title:c.title,message:c.message,dimension:c.dimension,field:c.field,items:c.items,unit:c.unit,sourceRefs:c.sourceRefs};
   if(c.kind==='correlation')return{kind:c.kind,title:c.title,message:c.message,xField:c.xField,yField:c.yField,r:c.r,sourceRefs:c.sourceRefs};
@@ -125,12 +131,19 @@ for(let i=0;i<roles.length;i++){
     continue;
   }
   if(role==='kpi'){
-    const rankedAll=candidates.map(c=>({c,score:score(c,role),visual:visualFor(c)})).filter(x=>['fact','delta'].includes(x.c.kind)).sort((a,b)=>b.score-a.score);
-    const seenFacts=new Set(); const ranked=[];
-    for(const x of rankedAll){const key=x.c.fact?.id||x.c.id;if(seenFacts.has(key))continue;seenFacts.add(key);ranked.push(x);if(ranked.length>=4)break;}
+    const kpiPriority=c=>{const pk=c.presentationKind||c.fact?.presentationKind||'';if(pk==='target_delta')return 120;if(pk==='concentration')return 105;if(pk==='association')return 95;if(pk==='contribution'){const dim=c.fact?.tags?.includes('hierarchical_contribution')?c.fact?.detail||'':'';const title=c.title||'';if(title.includes('道東')||title.includes('エリア')||title.includes('area'))return 110;if(title.includes('帯広')||title.includes('店舗')||title.includes('store'))return 90;return 75}if(pk==='gap')return 70;if(pk==='stability')return 40;return 50};
+    const rankedAll=candidates.map(c=>({c,score:score(c,role)+kpiPriority(c),visual:visualFor(c)})).filter(x=>['fact','delta'].includes(x.c.kind)).sort((a,b)=>b.score-a.score);
+    const seenFacts=new Set(), seenKinds=new Set(); const ranked=[];
+    for(const x of rankedAll){
+      const key=x.c.fact?.id||x.c.id;const pk=x.c.presentationKind||x.c.fact?.presentationKind||x.c.kind;
+      if(seenFacts.has(key))continue;
+      if(seenKinds.has(pk)&&['contribution','association','gap','stability'].includes(pk))continue;
+      seenFacts.add(key);seenKinds.add(pk);ranked.push(x);if(ranked.length>=4)break;
+    }
+    if(ranked.length<4){for(const x of rankedAll){const key=x.c.fact?.id||x.c.id;if(seenFacts.has(key))continue;seenFacts.add(key);ranked.push(x);if(ranked.length>=4)break;}}
     ranked.forEach(x=>used.set(x.c.id,(used.get(x.c.id)||0)+1));
     if(ranked.length){
-      slides.push({id:`s${String(i+1).padStart(2,'0')}`,role,status:'grounded',primaryMessage:`重要指標を ${ranked.length} 件で確認`,evidence:ranked.map(x=>evidenceObj(x.c)),visual:{type:'multiKpi',patternHint:'ED03-D',supported:true},sourceRefs:unique(ranked.flatMap(x=>x.c.sourceRefs)),confidence:mean(ranked.map(x=>x.c.quality)),warnings:ranked.some(x=>x.c.sample)?['sample source included']:[],alternatives:[]});continue;
+      slides.push({id:`s${String(i+1).padStart(2,'0')}`,role,status:'grounded',primaryMessage:`重要指標は数値を主役に、説明は補足へ分離`,evidence:ranked.map(x=>evidenceObj(x.c)),visual:{type:'multiKpi',patternHint:'ED03-D',supported:true},sourceRefs:unique(ranked.flatMap(x=>x.c.sourceRefs)),confidence:mean(ranked.map(x=>x.c.quality)),warnings:ranked.some(x=>x.c.sample)?['sample source included']:[],alternatives:[]});continue;
     }
   }
   if(role==='opening'){
@@ -146,25 +159,32 @@ for(let i=0;i<roles.length;i++){
   }
 }
 
+// Build a conservative patch for existing BRIEF-v1 resolver.
 const kpiSlide=slides.find(s=>s.role==='kpi'&&s.status==='grounded');
 const dataSlide=slides.find(s=>s.role==='data'&&s.status==='grounded'&&s.visual.chart);
 const compareSlide=slides.find(s=>s.role==='compare'&&s.status==='grounded');
 const opening=slides.find(s=>s.role==='opening');
-const metrics=(kpiSlide?.evidence||[]).filter(e=>['fact','delta'].includes(e.kind)).map(e=>({value:e.value,label:e.title}));
+const metrics=(kpiSlide?.evidence||[]).filter(e=>['fact','delta'].includes(e.kind)).map(e=>({value:e.value,label:e.title,note:e.detail||e.comparison?.deltaDisplay||''}));
 let current=null,ideal=null;
 if(compareSlide?.evidence?.[0]?.kind==='delta'){
   const e=compareSlide.evidence[0];const cmp=e.comparison||{};
   current={label:'BEFORE',title:cmp.label||'Baseline',text:cmp.baselineDisplay??String(cmp.baselineValue??'')};
   ideal={label:'AFTER',title:e.title,text:e.value};
 }
+
+if(bundle.metadata?.driverTarget){
+  const t=bundle.metadata.driverTarget;
+  current={label:t.baseline||'BASE',title:t.label||'対象指標',text:`${fmt(t.baselineValue,1)}${t.unit||''}`};
+  ideal={label:t.current||'CURRENT',title:t.label||'対象指標',text:`${fmt(t.currentValue,1)}${t.unit||''}（${Number(t.delta)>=0?'+':''}${fmt(t.delta,1)}${t.unit||''}）`};
+}
 const diagnosisSlide=slides.find(s=>s.role==='diagnosis'&&s.status==='grounded');
 const diagnosisEvidence=diagnosisSlide?.evidence?.[0];
 const corrAlt=(diagnosisSlide?.alternatives||[]).find(a=>a.kind==='correlation');
-const problem=diagnosisEvidence?{title:diagnosisEvidence.title,text:diagnosisEvidence.message}:brief.content?.problem;
-const cause=corrAlt?{title:'関連指標',text:corrAlt.title}:brief.content?.cause;
-const solution=diagnosisEvidence?{title:'次に確認すること',text:'重点対象の要因を確認し、修正理由・在庫・売変を分けて検証する'}:brief.content?.solution;
+const problem=brief.content?.problem||(diagnosisEvidence?{title:diagnosisEvidence.title,text:diagnosisEvidence.message}:undefined);
+const cause=brief.content?.cause||(corrAlt?{title:'関連指標',text:corrAlt.title}:undefined);
+const solution=brief.content?.solution||(diagnosisEvidence?{title:'次に確認すること',text:'重点対象の要因を確認し、修正理由・在庫・売変を分けて検証する'}:undefined);
 const evidence=slides.filter(s=>s.status==='grounded').flatMap(s=>s.evidence.slice(0,1).map(e=>({title:e.title,text:e.message,sourceRefs:e.sourceRefs})));
-const briefPatch={content:{lead:opening?.evidence?.[0]?.message||brief.content?.lead||'',metrics,chart:dataSlide?.visual?.chart||brief.content?.chart,evidence,current:current||brief.content?.current,ideal:ideal||brief.content?.ideal,problem,cause,solution}};
+const briefPatch={content:{lead:opening?.evidence?.[0]?.message||brief.content?.lead||'',metrics,chart:dataSlide?.visual?.chart||brief.content?.chart,evidence,current:current||brief.content?.current,ideal:ideal||brief.content?.ideal,problem,cause,solution,actions:brief.content?.actions||[]}};
 
 const plan={version:'1.0',profile:'CONTENT-PLAN-v1',brief:{title:brief.title,topic:brief.topic,audience:brief.audience,objective:brief.objective,slideCount:brief.slideCount,dataEmphasis:brief.dataEmphasis},sourceSummary:{factCount:(bundle.facts||[]).length,tableCount:(bundle.tables||[]).length,candidateCount:candidates.length,sampleTables:(bundle.tables||[]).filter(t=>t.sample).map(t=>t.id)},slides,briefPatch,candidateCatalog:candidates.map(c=>({id:c.id,kind:c.kind,title:c.title,message:c.message,quality:c.quality,sourceRefs:c.sourceRefs,supported:visualFor(c).supported,visual:visualFor(c).type}))};
 fs.writeFileSync(output,JSON.stringify(plan,null,2),'utf8');console.log(output);
