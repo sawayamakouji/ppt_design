@@ -12,7 +12,7 @@ const brief=JSON.parse(fs.readFileSync(input,'utf8'));
 if(brief.profile!=='BRIEF-v1')throw new Error('profile must be BRIEF-v1');
 const rulesPath=path.resolve(__dirname,'../brief/brief-resolver-rules.v1.json');
 const rules=JSON.parse(fs.readFileSync(rulesPath,'utf8'));
-const patternResolver=path.resolve(__dirname,'resolve_pattern_deck_to_scene.js');
+const patternResolver=path.resolve(__dirname,'resolve_pattern_deck_to_scene_semantic.js');
 
 const THEMES={
  TH01:{bg:'F3F0E7',ink:'111111',accent:'D2471D',signal:'F6B72B',paper:'FAF8F2',muted:'6C675E'},
