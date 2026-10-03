@@ -1,0 +1,17 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://ppt-design.local/schemas/design-lab-bundle.v2.json",
+  "title":"Design Lab Bundle v2",
+  "type":"object",
+  "required":["profile","slideOrder","variants","selections"],
+  "properties":{
+    "version":{"type":"string"},
+    "profile":{"const":"DESIGN-LAB-BUNDLE-v2"},
+    "deck":{"type":"object"},
+    "themes":{"type":"object"},
+    "slideOrder":{"type":"array","items":{"type":"string"},"minItems":1,"uniqueItems":true},
+    "variants":{"type":"object","additionalProperties":{"type":"object","required":["slides"],"properties":{"label":{"type":"string"},"slides":{"type":"object"}}}},
+    "selections":{"type":"object","additionalProperties":{"type":"string"}},
+    "reviews":{"type":"object"}
+  }
+}
