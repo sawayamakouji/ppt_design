@@ -1,0 +1,20 @@
+{
+  "version": "1.2",
+  "date": "2026-10-03",
+  "architecture": "shared-scene-graph",
+  "referenceRaster": {"widthPx": 1600, "heightPx": 900},
+  "qaRenderer": {
+    "html": "WeasyPrint -> PDF -> PNG @ 96dpi",
+    "ppt": "LibreOffice-based render_slides.py"
+  },
+  "regression": {
+    "v11SamePipelineAverageSSIM": 0.9053,
+    "v12AverageSSIM": 0.9287,
+    "improvement": 0.0234,
+    "qualityGate": 0.92,
+    "qualityGateResult": "PASS",
+    "overflowTest": "PASS"
+  },
+  "perSlideSSIM": [0.9137, 0.9261, 0.9379, 0.9278, 0.9183, 0.9211, 0.9377, 0.9319, 0.9262, 0.9463],
+  "nextTarget": "portability-and-backend-coverage"
+}
