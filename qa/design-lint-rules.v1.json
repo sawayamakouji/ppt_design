@@ -1,5 +1,5 @@
 {
-  "version": "1.6",
+  "version": "1.7",
   "profile": "PPT-DESIGN-AGENT-v1",
   "blocking": [
     "no_primary_message",
@@ -18,7 +18,9 @@
     "deck_story_repetition",
     "deck_visual_rhythm_failure",
     "narrative_order_failure",
-    "title_chain_failure"
+    "title_chain_failure",
+    "deck_length_redundancy",
+    "page_overload_requires_split"
   ],
   "rules": {
     "hierarchy": {"id":"L01","primaryCount":1,"maxHierarchyLevels":4,"requirePrimarySecondaryTertiaryDistinction":true},
@@ -34,7 +36,8 @@
     "semanticContentFit": {"id":"L11","kpiPrimaryValueMustBeScalarOrCompactToken":true,"maxKpiValueChars":24,"rejectSentenceInKpiValue":true,"separateValueLabelContext":true,"aggregateRepeatedTimeKeysBeforeChart":true,"rejectInternalSystemMetadataInUserFacingSlides":true,"avoidAdjacentSlidesWithSameEvidenceAndSameCardSilhouette":true,"causalStatusFromEvidenceMustBePreserved":true},
     "editorialStoryFit": {"id":"L12","oneQuestionPerSlide":true,"onePrimaryClaimPerSlide":true,"preferClaimHeadlineOverGenericTopicLabel":true,"suppressUndeclaredCrossSourceMetricComparisons":true,"avoidAdjacentSlidesAnsweringSameQuestionWithSameEvidence":true,"preserveEvidenceCausalStatusInWording":true,"compressAnalyticalProseBeforePatternResolution":true,"storySequenceMustBeExplicit":true},
     "deckNarrativeRhythm": {"id":"L13","titleSequenceMustReadAsStory":true,"avoidAdjacentRepeatedQuestions":true,"avoidAdjacentRepeatedClaims":true,"recentSilhouetteWindow":3,"avoidSameSilhouetteWithinWindow":true,"allowIntentionalSequenceRepetition":true,"preferVisualModeChangeAfterKpi":true,"requireDeckLevelEnergyVariation":true,"preferDecisionOrActionCloseWhenObjectiveRequiresIt":true,"threeDirectionsMustDifferStructurally":true},
-    "narrativeSequence": {"id":"L14","objectiveMustResolveToNarrativeArc":true,"detectEvidenceInterpretationOrderInversions":true,"respectSequenceLocks":true,"stableReorderOnly":true,"titleChainMustRemainFactPreserving":true,"titleBridgeMustNotStrengthenCausalStatus":true,"displayHeadlineMustReachRenderedArtifact":true,"preferActionCloseWhenArcRequiresIt":true}
+    "narrativeSequence": {"id":"L14","objectiveMustResolveToNarrativeArc":true,"detectEvidenceInterpretationOrderInversions":true,"respectSequenceLocks":true,"stableReorderOnly":true,"titleChainMustRemainFactPreserving":true,"titleBridgeMustNotStrengthenCausalStatus":true,"displayHeadlineMustReachRenderedArtifact":true,"preferActionCloseWhenArcRequiresIt":true},
+    "deckLengthFit": {"id":"L15","targetSlideCountIsGuidanceNotForced":true,"preferMergeBeforeDroppingUniqueEvidence":true,"splitOverloadedStructuredPagesBeforeFontShrink":true,"dropOnlyExplicitOptionalDuplicatesAutomatically":true,"protectOpeningAndActionClose":true,"doNotMergeConflictingCausalStatus":true,"respectDeckLengthAndSequenceLocks":true,"recordEveryLengthOperation":true,"allAutomaticOperationsMustBeReversible":true,"neverInventEvidenceToFillADeck":true}
   },
-  "workflow": ["brief","evidence_input","content_planner","presentation_editor","deck_director_sequence","deck_director_rhythm","reference_grammar","three_variations","human_review","resolve_design_system","design_lint","shared_scene_graph","render_html_ppt_golden","ppt_safe_qa"]
+  "workflow": ["brief","evidence_input","content_planner","presentation_editor","deck_length_editor","deck_director_sequence","deck_director_rhythm","reference_grammar","three_variations","human_review","resolve_design_system","design_lint","shared_scene_graph","render_html_ppt_golden","ppt_safe_qa"]
 }
