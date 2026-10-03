@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "profile": "GOLDEN-BENCHMARK-SUITE-v1",
+  "created": "2026-10-03",
+  "privacy": "All business values are synthetic/anonymized; scenarios are structurally faithful to prior work.",
+  "purpose": "Regression corpus for ppt_design presentation quality. Golden outputs are candidate-golden until explicitly approved.",
+  "deckCount": 10,
+  "slideCount": 63,
+  "dimensions": ["story","title_chain","content_fit","visual_rhythm","pattern_fit","layout","typography","render_safety","editability"],
+  "decks": [
+    {"id":"BM01","title":"AIオーダー導入後の運用診断","slug":"ai-order-operations","type":"executive_update","audience":"営業・商品・業務改革の責任者","objective":"diagnostic","targetSlides":6,"theme":"TH01","tags":["executive","operations","kpi","diagnostic"]},
+    {"id":"BM02","title":"クーポン施策の効果測定","slug":"coupon-effect","type":"evidence_evaluation","audience":"マーケティング・経営企画","objective":"decision","targetSlides":7,"theme":"TH10","tags":["causal","marketing","data-story","executive"]},
+    {"id":"BM03","title":"売変・値下げの重点診断","slug":"markdown-diagnostic","type":"performance_diagnostic","audience":"商品本部・営業本部","objective":"diagnostic","targetSlides":6,"theme":"TH01","tags":["diagnostic","ranking","matrix","retail"]},
+    {"id":"BM04","title":"感謝デー施策の採算シミュレーション","slug":"appreciation-day-economics","type":"scenario_simulation","audience":"営業企画・経営層","objective":"decision","targetSlides":6,"theme":"TH13","tags":["simulation","economics","compare","decision"]},
+    {"id":"BM05","title":"Synapse↔BigQuery 会員IDブリッジ設計","slug":"receipt-id-bridge","type":"technical_architecture","audience":"データ基盤・分析担当","objective":"proposal","targetSlides":6,"theme":"TH05","tags":["architecture","data","technical","flow"]},
+    {"id":"BM06","title":"年末シーズン発注計画と進捗管理","slug":"year-end-ordering-plan","type":"operational_plan","audience":"商品・店舗運営・業務改革","objective":"plan","targetSlides":7,"theme":"TH04","tags":["planning","timeline","operations","matrix"]},
+    {"id":"BM07","title":"生成AI・Cloud業務改革 投資計画","slug":"genai-cloud-investment","type":"investment_proposal","audience":"経営層・IT・業務改革責任者","objective":"approval","targetSlides":6,"theme":"TH14","tags":["proposal","investment","roadmap","executive"]},
+    {"id":"BM08","title":"Copilot Studio クレジット利用の見える化","slug":"copilot-credit-governance","type":"cost_governance","audience":"M365管理者・作成者コミュニティ","objective":"decision","targetSlides":6,"theme":"TH02","tags":["governance","cost","ranking","usage"]},
+    {"id":"BM09","title":"店舗巡回・週報・数値実績の統合ワークフロー","slug":"store-field-reporting","type":"workflow_redesign","audience":"営業マネージャー・エリア担当","objective":"proposal","targetSlides":6,"theme":"TH05","tags":["workflow","teams","sharepoint","field"]},
+    {"id":"BM10","title":"2027年度 デジタル企画チーム運営計画","slug":"digital-team-roadmap","type":"strategy_roadmap","audience":"部門長・チームメンバー・関係部門","objective":"plan","targetSlides":7,"theme":"TH03","tags":["strategy","roadmap","operating-model","portfolio"]}
+  ]
+}

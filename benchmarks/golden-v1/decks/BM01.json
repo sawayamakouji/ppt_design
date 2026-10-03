@@ -1,0 +1,15 @@
+{
+  "id": "BM01",
+  "slug": "ai-order-operations",
+  "title": "AIオーダー導入後の運用診断",
+  "audience": "営業・商品・業務改革の責任者",
+  "objective": "diagnostic",
+  "type": "executive_update",
+  "targetSlides": 6,
+  "theme": "TH01",
+  "tags": ["executive","operations","kpi","diagnostic"],
+  "brief": "AIオーダー導入後の運用状況を6枚で報告する。自動化の成果だけでなく、人の修正・例外運用・次の改善点まで一続きで示す。",
+  "evidence": {"synthetic":true,"metrics":[{"name":"導入店舗","value":"40店"},{"name":"修正あり率","value":"21.8%"},{"name":"売変率前年差","value":"+0.4pt"},{"name":"修正率×売変率変化","value":"r=0.36"}],"notes":["2日リード","前日修正あり","例外商品運用あり"]},
+  "golden": {"status":"candidate-golden","patternDeck":{"version":"1.0","profile":"PATTERN-DECK-v1","deck":{"title":"AIオーダー導入後の運用診断","author":"ppt_design benchmark","lang":"ja-JP","defaultTheme":"TH01","defaultDensity":"MED","defaultComposition":"CM02","renderProfile":"PPT-SAFE-v1.3","fonts":{"jp":"Yu Gothic","latin":"Aptos"}},"slides":[{"id":"BM01-S01","pattern":"ED01-A","density":"LOW","theme":"TH01","composition":"CM01","content":{"kicker":"AI ORDER / OPERATIONS","title":"AIオーダーは、\n自動化だけでは完成しない。","lead":"推奨値・人の修正・例外運用を一つの運用設計として見る。","label":"ROLLOUT","metric":"40","metricLabel":"stores"}},{"id":"BM01-S02","pattern":"ED03-D","density":"MED","theme":"TH01","composition":"CM03","content":{"kicker":"KEY NUMBER","title":"まず、4つの数字で運用状態を押さえる","metrics":[{"value":"21.8%","label":"修正あり率"},{"value":"+0.4pt","label":"売変率前年差"},{"value":"r=0.36","label":"修正率×売変率変化"},{"value":"2日","label":"入荷リード"}]}},{"id":"BM01-S03","pattern":"ED08-C","density":"MED","theme":"TH01","composition":"CM02","content":{"kicker":"DATA STORY","title":"修正率だけでは、良し悪しは決められない","lead":"店舗ごとの差は大きい。売変率・在庫・例外運用と合わせて読む。","annotation":"高修正でも改善店あり","chart":{"type":"column","categories":["A店","B店","C店","D店","E店","F店"],"series":[{"name":"修正率","values":[12,18,22,27,31,35]}]}}},{"id":"BM01-S04","pattern":"ED06-B","density":"HIGH","theme":"TH01","composition":"CM02","content":{"kicker":"PROBLEM → SOLUTION","title":"修正の「量」から、修正の「意味」へ","problem":{"title":"理由が残らない","text":"数値丸め・納品日都合・意図不明な乖離が混在"},"cause":{"title":"運用が一括集計","text":"修正行為だけでは良否を判定できない"},"solution":{"title":"理由を分類","text":"例外・棚割・MinMax・前日修正を分けて評価"}}},{"id":"BM01-S05","pattern":"ED07-E","density":"MED","theme":"TH01","composition":"CM02","content":{"kicker":"OPERATING MODEL","title":"AIと人の役割を、4つのレーンで分ける","stages":[{"role":"AI","step":"需要推定・推奨","output":"recommended qty"},{"role":"担当者","step":"例外判断・修正","output":"reason code"},{"role":"物流","step":"納品制約反映","output":"feasible order"},{"role":"分析","step":"例外と成果を検証","output":"next rule"}]}},{"id":"BM01-S06","pattern":"ED11-B","density":"MED","theme":"TH01","composition":"CM02","content":{"kicker":"ACTION","title":"次は「修正率を下げる」ではなく、修正の質を上げる","actions":[{"what":"修正理由を標準化","who":"店舗/本部","when":"NOW"},{"what":"棚割・MinMaxを重点点検","who":"商品/運営","when":"NEXT"},{"what":"例外商品を週次レビュー","who":"業務改革","when":"ONGOING"}]}}]},"requiredPatterns":["ED01","ED03","ED08","ED06","ED07","ED11"],"slideCount":6},
+  "privacy": "synthetic/anonymized"
+}
