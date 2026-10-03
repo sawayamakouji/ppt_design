@@ -1,0 +1,31 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://ppt-design.local/schemas/pattern-deck.v1.json",
+  "title":"Pattern Deck v1",
+  "type":"object",
+  "required":["profile","slides"],
+  "properties":{
+    "version":{"type":"string"},
+    "profile":{"const":"PATTERN-DECK-v1"},
+    "deck":{"type":"object"},
+    "themes":{"type":"object"},
+    "slides":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/slide"}}
+  },
+  "$defs":{
+    "slide":{
+      "type":"object",
+      "required":["id","pattern","content"],
+      "properties":{
+        "id":{"type":"string"},
+        "pattern":{"type":"string","pattern":"^ED(0[1-9]|1[0-2])(-[A-Z])?$"},
+        "density":{"enum":["LOW","MED","HIGH"]},
+        "theme":{"type":"string"},
+        "composition":{"enum":["CM01","CM02","CM03"]},
+        "renderProfile":{"type":"string"},
+        "background":{"type":"string"},
+        "content":{"type":"object"},
+        "notes":{"type":"string"}
+      }
+    }
+  }
+}
