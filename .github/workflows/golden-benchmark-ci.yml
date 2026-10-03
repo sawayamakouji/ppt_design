@@ -1,0 +1,145 @@
+name: Golden Benchmark Visual QA
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: golden-benchmark-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CURRENT_OUT: ${{ github.workspace }}/.artifacts/golden-current
+      BASE_OUT: ${{ github.workspace }}/.artifacts/golden-base
+    steps:
+      - name: Checkout current
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install rendering dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libreoffice-impress poppler-utils fonts-noto-cjk
+          npm install --no-save pptxgenjs
+          python -m pip install --disable-pip-version-check pillow
+
+      - name: Corpus contract
+        run: node qa/test_golden_benchmark_v1.js
+
+      - name: Generate current benchmark
+        run: node qa/run_golden_benchmark_pipeline_v1.js "$GITHUB_WORKSPACE" "$CURRENT_OUT"
+
+      - name: Render current PPTX to PDF and PNG
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$CURRENT_OUT/pdf" "$CURRENT_OUT/png"
+          for f in "$CURRENT_OUT"/pptx/*.pptx; do
+            id="$(basename "$f" .pptx)"
+            mkdir -p "$CURRENT_OUT/png/$id"
+            libreoffice --headless --convert-to pdf --outdir "$CURRENT_OUT/pdf" "$f" >/tmp/lo-current.log 2>&1 || { cat /tmp/lo-current.log; exit 1; }
+            pdf="$CURRENT_OUT/pdf/$id.pdf"
+            test -s "$pdf"
+            pdftoppm -png -r 110 "$pdf" "$CURRENT_OUT/png/$id/slide" >/dev/null 2>&1
+            expected="$(node -e "const s=require('./benchmarks/golden-v1/decks/$id.json');console.log(s.targetSlides)")"
+            actual="$(find "$CURRENT_OUT/png/$id" -maxdepth 1 -name 'slide-*.png' | wc -l)"
+            test "$actual" -eq "$expected" || { echo "$id page count $actual != $expected"; exit 1; }
+          done
+
+      - name: Prepare base worktree
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          git worktree add /tmp/ppt-design-base "origin/${{ github.base_ref }}"
+          ln -s "$GITHUB_WORKSPACE/node_modules" /tmp/ppt-design-base/node_modules
+
+      - name: Generate base benchmark
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -f /tmp/ppt-design-base/benchmarks/golden-v1/manifest.v1.json; then
+            NODE_PATH="$GITHUB_WORKSPACE/node_modules" node "$GITHUB_WORKSPACE/qa/run_golden_benchmark_pipeline_v1.js" /tmp/ppt-design-base "$BASE_OUT"
+          else
+            echo "Base branch has no Golden Benchmark; visual comparison skipped."
+            touch "$BASE_OUT.skip"
+          fi
+
+      - name: Render base PPTX to PDF and PNG
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -f "$BASE_OUT.skip"; then exit 0; fi
+          mkdir -p "$BASE_OUT/pdf" "$BASE_OUT/png"
+          for f in "$BASE_OUT"/pptx/*.pptx; do
+            id="$(basename "$f" .pptx)"
+            mkdir -p "$BASE_OUT/png/$id"
+            libreoffice --headless --convert-to pdf --outdir "$BASE_OUT/pdf" "$f" >/tmp/lo-base.log 2>&1 || { cat /tmp/lo-base.log; exit 1; }
+            pdf="$BASE_OUT/pdf/$id.pdf"
+            test -s "$pdf"
+            pdftoppm -png -r 110 "$pdf" "$BASE_OUT/png/$id/slide" >/dev/null 2>&1
+          done
+
+      - name: Compare PR render against base
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$CURRENT_OUT/report"
+          if test -f "$BASE_OUT.skip"; then
+            printf '# Visual Regression Report\n\nBase branch has no Golden Benchmark; visual comparison skipped.\n' > "$CURRENT_OUT/report/visual-diff.md"
+          else
+            python qa/compare_benchmark_renders_v1.py \
+              "$CURRENT_OUT/png" "$BASE_OUT/png" \
+              --benchmark-root benchmarks/golden-v1 \
+              --out "$CURRENT_OUT/report" \
+              --golden-threshold 0.01
+          fi
+
+      - name: Job summary
+        if: always()
+        shell: bash
+        run: |
+          if test -f "$CURRENT_OUT/pipeline-report.md"; then cat "$CURRENT_OUT/pipeline-report.md" >> "$GITHUB_STEP_SUMMARY"; fi
+          if test -f "$CURRENT_OUT/report/visual-diff.md"; then printf '\n---\n\n' >> "$GITHUB_STEP_SUMMARY"; cat "$CURRENT_OUT/report/visual-diff.md" >> "$GITHUB_STEP_SUMMARY"; fi
+
+      - name: Upload current benchmark artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-benchmark-current-${{ github.sha }}
+          path: .artifacts/golden-current
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Upload base render artifacts
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-benchmark-base-${{ github.event.pull_request.base.sha }}
+          path: .artifacts/golden-base
+          retention-days: 7
+          if-no-files-found: ignore
