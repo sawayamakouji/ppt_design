@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/causal-test-plan.v1.json",
+  "title": "Causal Test Plan v1",
+  "type": "object",
+  "required": ["version", "profile", "hypothesis", "dataReadiness", "recommendation", "diagnostics", "executionPlan"],
+  "properties": {
+    "version": {"type":"string"},
+    "profile": {"const":"CAUSAL-TEST-PLAN-v1"},
+    "hypothesis": {"type":"object"},
+    "dataReadiness": {"type":"object"},
+    "recommendation": {"type":"object"},
+    "diagnostics": {"type":"array","items":{"type":"object"}},
+    "assumptions": {"type":"array","items":{"type":"object"}},
+    "executionPlan": {"type":"array","items":{"type":"object"}},
+    "decisionRules": {"type":"array","items":{"type":"object"}},
+    "effectPreview": {"type":["object","null"]},
+    "warnings": {"type":"array","items":{"type":"string"}},
+    "sourceRefs": {"type":"array","items":{"type":"string"}}
+  }
+}
