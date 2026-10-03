@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "profile": "GOLDEN-BENCHMARK-RUBRIC-v1",
+  "total": 100,
+  "criteria": [
+    {"id":"R01","name":"Story coherence","weight":15,"blocking":false,"description":"Titles alone form a coherent argument."},
+    {"id":"R02","name":"Title chain","weight":10,"blocking":false,"description":"Adjacent pages advance rather than repeat."},
+    {"id":"R03","name":"Content fit","weight":15,"blocking":true,"description":"No prose stuffed into KPI values; density matches page job."},
+    {"id":"R04","name":"Visual rhythm","weight":15,"blocking":false,"description":"Deck alternates hero, data, structure, calm and action appropriately."},
+    {"id":"R05","name":"Pattern fit","weight":10,"blocking":false,"description":"ED pattern matches the information task."},
+    {"id":"R06","name":"Layout readability","weight":15,"blocking":true,"description":"No collision, clipping, tiny type or broken connectors."},
+    {"id":"R07","name":"Typography & spacing","weight":10,"blocking":false,"description":"Hierarchy and grouping are immediately legible."},
+    {"id":"R08","name":"Render safety","weight":5,"blocking":true,"description":"PPT-SAFE, no canvas overflow."},
+    {"id":"R09","name":"Editability","weight":5,"blocking":false,"description":"Core content remains editable in PowerPoint."}
+  ],
+  "statusThresholds": {"golden":90,"candidate":80,"needs_work":0}
+}
