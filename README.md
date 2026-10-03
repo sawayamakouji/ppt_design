@@ -2,6 +2,18 @@
 
 Presentation design system repository for the **Editorial 90/8/2** style.
 
+## Core purpose
+
+`ppt_design` turns an already-prepared brief and evidence into a clear, editable, visually coherent presentation.
+
+It is **not** the canonical place for domain analysis, causal estimation, forecasting, clustering, or business-specific KPI calculation. Those belong upstream and enter this system through a stable evidence contract.
+
+See:
+
+- `docs/SCOPE_BOUNDARY_V1.md`
+- `schemas/evidence-bundle.v1.json`
+- `docs/ANALYTICS_PROTOTYPES.md`
+
 ## Core design language
 
 - Base: warm white / off-white
@@ -46,18 +58,14 @@ Principle:
 
 > 結論は短く。理由は文章で。詳細は構造化する。
 
-## End-to-end generation pipeline
-
-The current system separates analysis, content selection, design choice, geometry and rendering into explicit layers:
+## Canonical presentation pipeline
 
 ```text
-Natural-language brief + Excel / CSV / JSON / BigQuery result
-  -> BRIEF-v1 + SOURCE-BUNDLE-v1
-  -> Insight Engine: statistically notable changes / gaps / anomalies / concentration
-  -> INSIGHT-BUNDLE-v1
-  -> Content Planner: which evidence belongs in this deck
-  -> CONTENT-PLAN-v1
-  -> Brief Resolver: story roles + A/B/C design directions
+Natural-language brief + EVIDENCE-BUNDLE-v1
+  -> Content Planner
+  -> Presentation Editor
+  -> Deck Director
+  -> A/B/C design directions
   -> PATTERN-DECK-v1
   -> Pattern Resolver: ED / Density / Theme / Composition -> geometry
   -> SCENE-DECK-v1
@@ -66,19 +74,36 @@ Natural-language brief + Excel / CSV / JSON / BigQuery result
   -> Design Lint / PPT-SAFE / Golden QA
 ```
 
-The Insight Engine currently detects period deltas, trends, change-point candidates, robust anomalies, rankings, concentration (Top-20% share / HHI / Gini), contribution, correlation, and segment gaps. Statistical association is kept separate from causal interpretation.
+### Content Planner
 
-Canonical analysis files include:
+Chooses what belongs in the deck from already-available evidence.
 
-- `docs/INSIGHT_ENGINE_V1.md`
-- `schemas/insight-bundle.v1.json`
-- `insight/insight-engine-rules.v1.json`
-- `tools/analyze_insights.js`
-- `tools/resolve_brief_with_insights.js`
+### Presentation Editor
+
+Converts analysis-style prose into presentation-safe claims, values, labels, caveats, and page jobs. It enforces one page / one question / one primary claim.
+
+### Deck Director
+
+Looks across the whole deck rather than slide-by-slide. It manages story progression, title sequence, visual rhythm, macrostructure diversity, visual peaks, repeated silhouettes, and closing action.
+
+Canonical files:
+
+- `docs/PRESENTATION_EDITOR_V1.md`
+- `docs/DECK_DIRECTOR_V1.md`
+- `deck/deck-director-rules.v1.json`
+- `tools/direct_deck.js`
 - `docs/CONTENT_PLANNER_V1.md`
 - `docs/BRIEF_RESOLVER_V1.md`
 - `docs/PATTERN_RESOLVER_V1.md`
 - `docs/SHARED_SCENE_GRAPH_COMPILER_V1.md`
+
+## Analytical prototypes
+
+Insight Engine, Driver Explorer, and Causal Test Planner remain in the repository as historical / experimental adapters only.
+
+They are **not core dependencies** of the presentation pipeline and should not be extended here into a general analytics platform.
+
+If analytical work continues, it should live in a separate analysis repository or service and provide `EVIDENCE-BUNDLE-v1` to this system.
 
 ## PowerPoint rendering layer
 
@@ -94,8 +119,6 @@ The rendering layer controls:
 6. shared HTML/PPT geometry
 7. Windows PowerPoint golden-render workflow
 
-### v1.2 architecture retained
-
 Production patterns use a renderer-neutral shared scene definition:
 
 `Page Pattern × Text Density × Theme × Composition`
@@ -108,21 +131,6 @@ Production patterns use a renderer-neutral shared scene definition:
 
 Layout intelligence belongs in the resolved scene graph, not duplicated backend code.
 
-### v1.3 portability layer
-
-v1.3 expands regression beyond TH01 and raster similarity.
-
-Coverage now includes:
-
-- `TH05` Technical Blueprint
-- `TH12` Midnight Neon
-- `CM03` text-heavy calm layouts
-- `CHART-SHAPE` fidelity-first charts
-- `CHART-NATIVE` editability-first charts
-- slide-run font declaration audit
-- geometry / minimum-font audit
-- Windows Microsoft PowerPoint PNG export workflow
-
 Portable slide fonts are declared as:
 
 - Japanese / mixed: `Yu Gothic`
@@ -130,39 +138,7 @@ Portable slide fonts are declared as:
 
 Approved fallbacks include `Yu Gothic UI`, `Meiryo`, and `Arial`.
 
-The current Linux/LibreOffice environment does not contain Yu Gothic or Aptos, so its render is treated as a compatibility stress test. The final production golden is the Windows Microsoft PowerPoint export.
-
-### Current QA status
-
-v1.2 shared-geometry test:
-
-- average SSIM: **0.9287**
-- overflow: **PASS**
-
-v1.3 portability deck:
-
-- slides: **8**
-- slide-bounds audit: **PASS**
-- text below `8.5 pt`: **0**
-- overflow test: **PASS**
-- unapproved slide-run fonts: **0**
-- TH05 / TH12 / CM03 / Native / Shape coverage: **PASS**
-
-Canonical files:
-
-- `docs/PPT_RENDERING_SPEC_V1_2.md`
-- `docs/PPT_RENDERING_SPEC_V1_3.md`
-- `renderers/SHARED_SCENE_GRAPH_V1_2.md`
-- `tokens/ppt-font-rules.v1.json`
-- `tokens/ppt-text-fit.v1.json`
-- `tokens/ppt-chart-rules.v1.json`
-- `tokens/ppt_render_metrics.v1.2.json`
-- `qa/PPT_SAFE_V1_2_RESULTS.md`
-- `qa/PPT_SAFE_V1_3_RESULTS.md`
-- `qa/audit_pptx_portability.py`
-- `qa/audit_pptx_geometry.py`
-- `qa/export_powerpoint_golden_windows.ps1`
-- `qa/compare_rendered_slides.py`
+The current Linux/LibreOffice environment is treated as a compatibility stress test. The final production golden remains Windows Microsoft PowerPoint export.
 
 ## Repository structure
 
@@ -173,14 +149,15 @@ ppt_design/
 ├─ patterns/       # Pattern definitions / IDs / metadata
 ├─ themes/         # Theme palettes / visual identities
 ├─ composition/    # CM01 / CM02 / CM03 composition modes
-├─ insight/        # Insight Engine scoring / thresholds / guardrails
+├─ deck/           # Deck Director rules and deck-level orchestration
 ├─ content/        # Content Planner rules
+├─ presentation/   # Presentation Editor rules
 ├─ brief/          # Brief Resolver rules
-├─ schemas/        # Interchange contracts: BRIEF / SOURCE / INSIGHT / CONTENT / PATTERN / SCENE
+├─ schemas/        # Presentation interchange contracts
 ├─ tools/          # Resolvers, compilers, adapters and review builders
 ├─ tokens/         # Color, typography, spacing, PPT-safe rendering tokens
 ├─ renderers/      # Shared scene graph / HTML / PPT renderer design
-├─ qa/             # Regression, analysis, font, geometry, Windows golden QA
+├─ qa/             # Presentation, regression, font, geometry and Golden QA
 ├─ pptx/           # Editable PowerPoint examples
 └─ docs/           # Design rules and authoring guidance
 ```
