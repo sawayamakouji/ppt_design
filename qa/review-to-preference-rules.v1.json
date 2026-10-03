@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "profile": "REVIEW-FEEDBACK-LOOP-v1",
+  "ingest": {
+    "acceptedSignals": ["comment","favorite","keep","redo","score0","score1","score2","score3","overall","next"],
+    "mapping": {
+      "favorite=true": "positive preference evidence",
+      "keep=true": "adoption evidence",
+      "redo=true": "negative preference or QA evidence; inspect comment before classifying",
+      "low score + comment": "candidate improvement rule",
+      "comment describing overlap/clipping/geometry": "QA defect, not taste",
+      "comment describing visual liking/disliking": "taste evidence"
+    }
+  },
+  "promotion": {
+    "qaDefect": "promote immediately to blocking QA when objectively testable",
+    "tasteRule": "promote after explicit confirmation or repeated evidence",
+    "patternPreference": "require at least 2 independent positive signals",
+    "themePreference": "require at least 2 independent positive signals"
+  },
+  "compile": {
+    "selectionPriority": [
+      "explicit per-slide keep/favorite",
+      "explicit per-slide comment preference",
+      "variant average scores",
+      "default story-fit recommendation"
+    ],
+    "doNotAutoselectFrom": ["silence","single QA defect","missing review fields"]
+  }
+}
