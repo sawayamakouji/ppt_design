@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Composition Mode Axis</title>
+<style>
+:root{--bg:#F3F0E7;--paper:#FAF8F2;--ink:#111;--red:#D2471D;--yellow:#F6B72B}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+body{background-image:linear-gradient(rgba(17,17,17,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,17,.06) 1px,transparent 1px);background-size:40px 40px}
+.wrap{max-width:1500px;margin:auto;padding:28px}
+.top{border:3px solid var(--ink);background:var(--paper);padding:32px;margin-bottom:18px}
+.kicker{font-size:12px;font-weight:1000;letter-spacing:.14em}
+h1{font-size:clamp(46px,6vw,92px);line-height:.9;letter-spacing:-.06em;margin:10px 0 15px;font-weight:1000}
+h1 span{color:var(--red)}
+.lead{font-size:18px;line-height:1.55;font-weight:800;max-width:900px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{border:3px solid var(--ink);background:var(--paper)}
+.head{padding:12px 14px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:center}
+.id{background:var(--ink);color:white;padding:5px 8px;font-size:12px;font-weight:1000}
+.name{font-weight:1000;font-size:18px}
+.preview{aspect-ratio:16/9;padding:22px}
+.preview .inner{height:100%}
+.label{font-size:10px;font-weight:1000;letter-spacing:.12em}
+.title{font-weight:1000;letter-spacing:-.05em}
+.text{font-size:11px;line-height:1.5;font-weight:700}
+.box{border:2px solid var(--ink);padding:12px}
+.desc{padding:14px;border-top:2px solid var(--ink);font-size:12px;line-height:1.55;font-weight:750}
+
+/* CM01 expressive */
+.cm01 .inner{display:grid;grid-template-columns:1.4fr .6fr;gap:12px}
+.cm01 .left{display:flex;flex-direction:column;justify-content:space-between}
+.cm01 .title{font-size:42px;line-height:.88}
+.cm01 .right{display:grid;grid-template-rows:1fr 1fr;gap:9px}
+.cm01 .right .box:first-child{background:var(--red);color:white;border-color:var(--red)}
+.cm01 .right .box:last-child{background:var(--ink);color:white}
+
+/* CM02 balanced */
+.cm02 .inner{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cm02 .left,.cm02 .right{display:flex;flex-direction:column;justify-content:center;gap:16px}
+.cm02 .title{font-size:31px;line-height:1.02}
+.cm02 .box{min-height:76px}
+
+/* CM03 calm */
+.cm03 .inner{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+.cm03 .title{font-size:27px;line-height:1.05}
+.cm03 .left,.cm03 .right{display:flex;flex-direction:column;gap:14px}
+.cm03 .box{border-width:1.5px}
+.cm03 .soft{background:#F0ECE4}
+
+.axis{margin-top:18px;border:3px solid var(--ink);background:#111;color:white;padding:18px}
+.axis-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.axis b{color:var(--yellow)}
+.axis div{font-size:12px;line-height:1.5;font-weight:750}
+code{color:#DFFF00}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.axis-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="top">
+    <div class="kicker">SEPARATE AXIS / COMPOSITION MODE</div>
+    <h1>Themeとは別に、<br><span>組み方</span>を選ぶ。</h1>
+    <div class="lead">色や世界観は同じでも、文字サイズ差・配置の偏り・余白密度を変えると印象は大きく変わる。これはThemeに混ぜず、Composition Modeとして独立させる。</div>
+  </section>
+
+  <section class="grid">
+    <article class="card cm01">
+      <div class="head"><div><span class="id">CM01</span> <span class="name">Expressive</span></div><div>強弱大</div></div>
+      <div class="preview">
+        <div class="inner">
+          <div class="left">
+            <div><div class="label">KEY MESSAGE</div><div class="title">現場の判断を、<br><span style="color:var(--red)">もっと速く。</span></div></div>
+            <div class="text">大きな差・非対称・強い余白で、視線を意図的に動かす。</div>
+          </div>
+          <div class="right">
+            <div class="box"><div class="label">KPI</div><b>78%</b></div>
+            <div class="box"><div class="label">NEXT</div><span>重点3店舗</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="desc">今の標準。大見出しと小文字の差が大きく、70:30など非対称配置を積極的に使う。</div>
+    </article>
+
+    <article class="card cm02">
+      <div class="head"><div><span class="id">CM02</span> <span class="name">Balanced</span></div><div>強弱中</div></div>
+      <div class="preview">
+        <div class="inner">
+          <div class="left">
+            <div class="label">KEY MESSAGE</div>
+            <div class="title">現場の判断を、もっと速く。</div>
+            <div class="text">文字サイズ差を少し抑え、左右の情報量も近づける。</div>
+          </div>
+          <div class="right">
+            <div class="box"><div class="label">KPI</div><b style="font-size:26px">78%</b></div>
+            <div class="box"><div class="label">NEXT</div><span class="text">重点3店舗で改善施策を検証</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="desc">60:40〜50:50寄り。経営報告や正式資料でも使いやすく、派手さを抑えつつEditorial感は残す。</div>
+    </article>
+
+    <article class="card cm03">
+      <div class="head"><div><span class="id">CM03</span> <span class="name">Calm / Uniform</span></div><div>強弱小</div></div>
+      <div class="preview">
+        <div class="inner">
+          <div class="left">
+            <div class="label">KEY MESSAGE</div>
+            <div class="title">現場の判断を、もっと速く。</div>
+            <div class="text">見出し・本文・数値の差を控えめにし、平均的で静かな構成にする。</div>
+          </div>
+          <div class="right">
+            <div class="box soft"><div class="label">KPI</div><b style="font-size:22px">78%</b></div>
+            <div class="box"><div class="label">NEXT</div><span class="text">重点3店舗で改善施策を検証</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="desc">配置も文字サイズも均等寄り。読みやすさ・落ち着き・安定感を優先する別軸のモード。</div>
+    </article>
+  </section>
+
+  <section class="axis">
+    <div class="axis-grid">
+      <div><b>Theme</b><br>色・フォント人格・質感<br><code>TH01–TH14</code></div>
+      <div><b>Page Pattern</b><br>情報構造<br><code>ED01–ED12</code></div>
+      <div><b>Text Density</b><br>文字量<br><code>LOW / MED / HIGH</code></div>
+      <div><b>Composition</b><br>強弱・配置・余白<br><code>CM01 / CM02 / CM03</code></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
