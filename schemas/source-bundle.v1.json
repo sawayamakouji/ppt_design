@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/source-bundle.v1.json",
+  "title": "Source Bundle v1",
+  "type": "object",
+  "required": ["profile"],
+  "properties": {
+    "version": {"type":"string"},
+    "profile": {"const":"SOURCE-BUNDLE-v1"},
+    "metadata": {"type":"object"},
+    "facts": {
+      "type":"array",
+      "items": {
+        "type":"object",
+        "required":["id","label","value"],
+        "properties": {
+          "id":{"type":"string"},
+          "label":{"type":"string"},
+          "value":{},
+          "displayValue":{"type":"string"},
+          "unit":{"type":"string"},
+          "period":{"type":"string"},
+          "tags":{"type":"array","items":{"type":"string"}},
+          "comparison":{"type":"object","properties":{"label":{"type":"string"},"baselineValue":{},"baselineDisplay":{"type":"string"},"deltaValue":{},"deltaDisplay":{"type":"string"}}},
+          "sourceRefs":{"type":"array","items":{"type":"string"}},
+          "confidence":{"type":"number","minimum":0,"maximum":1}
+        }
+      }
+    },
+    "tables": {
+      "type":"array",
+      "items": {
+        "type":"object",
+        "required":["id","columns","rows"],
+        "properties": {
+          "id":{"type":"string"},
+          "title":{"type":"string"},
+          "grain":{"type":"string"},
+          "columns":{"type":"array","items":{"type":"object","required":["name","type"],"properties":{"name":{"type":"string"},"label":{"type":"string"},"type":{"enum":["string","number","date","boolean"]},"semantic":{"enum":["dimension","metric","time","id","text"]},"unit":{"type":"string"},"aggregation":{"enum":["sum","avg","min","max","latest","none"]}}}},
+          "rows":{"type":"array","items":{"type":"object"}},
+          "provenance":{"type":"object"},
+          "sample":{"type":"boolean"}
+        }
+      }
+    }
+  }
+}
