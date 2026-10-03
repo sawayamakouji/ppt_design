@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/presentation-plan.v1.json",
+  "title": "Presentation Plan v1",
+  "type": "object",
+  "required": ["version", "profile", "deck", "slides"],
+  "properties": {
+    "version": {"type":"string"},
+    "profile": {"const":"PRESENTATION-PLAN-v1"},
+    "deck": {
+      "type":"object",
+      "required":["title"],
+      "properties": {
+        "title":{"type":"string"},
+        "topic":{"type":"string"},
+        "audience":{"type":"string"},
+        "objective":{"type":"string"},
+        "anchorMetric":{"type":"string"},
+        "anchorSourceRefs":{"type":"array","items":{"type":"string"}}
+      }
+    },
+    "slides": {
+      "type":"array",
+      "items": {
+        "type":"object",
+        "required":["id","storyStep","question","claim","payload"],
+        "properties": {
+          "id":{"type":"string"},
+          "storyStep":{"enum":["opening","kpi","hierarchy","breakdown","association","action","generic"]},
+          "question":{"type":"string"},
+          "claim":{"type":"string"},
+          "payload":{"type":"object"},
+          "sourceRefs":{"type":"array","items":{"type":"string"}},
+          "causalStatus":{"type":"string"},
+          "confidence":{"type":"number","minimum":0,"maximum":1},
+          "notes":{"type":"array","items":{"type":"string"}}
+        }
+      }
+    },
+    "suppressedEvidence":{"type":"array","items":{"type":"object"}},
+    "quality":{"type":"object"}
+  }
+}
