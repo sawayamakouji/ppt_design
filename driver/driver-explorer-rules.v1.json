@@ -1,0 +1,27 @@
+{
+  "version":"1.0",
+  "profile":"DRIVER-EXPLORER-RULES-v1",
+  "thresholds":{
+    "minTimePoints":2,
+    "minSegments":4,
+    "minCorrelationN":6,
+    "correlationAbs":0.45,
+    "strongCorrelationAbs":0.70,
+    "minContributionShare":0.12,
+    "minConcentrationShare":0.55,
+    "maxHierarchyDepth":5,
+    "maxDriversPerLevel":5,
+    "maxCandidates":30,
+    "smallN":8,
+    "signStabilityMin":0.60
+  },
+  "scoreWeights":{"effect":0.55,"confidence":0.30,"coverage":0.15},
+  "guardrails":{
+    "causalLanguage":false,
+    "correlationLabel":"association_only",
+    "contributionLabel":"accounting_decomposition",
+    "segmentLabel":"descriptive_difference",
+    "requireBusinessValidation":true,
+    "sampleFlagPropagation":true
+  }
+}
