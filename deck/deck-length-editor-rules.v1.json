@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "profile": "DECK-LENGTH-EDITOR-v1",
+  "targetRanges": {
+    "executive": {"min": 5, "max": 7},
+    "management": {"min": 6, "max": 8},
+    "standard": {"min": 6, "max": 10},
+    "update": {"min": 4, "max": 7}
+  },
+  "payloadLimits": {
+    "metrics": 4,
+    "items": 6,
+    "stages": 5,
+    "actions": 3,
+    "bodyChars": 420
+  },
+  "merge": {
+    "requireAdjacency": true,
+    "allowedStorySteps": ["kpi", "breakdown", "association", "generic"],
+    "requireSameStoryStep": true,
+    "requireCompatibleCausalStatus": true,
+    "maxCombinedMetrics": 4,
+    "maxCombinedItems": 6,
+    "maxCombinedActions": 3
+  },
+  "drop": {
+    "requireExplicitOptionalOrAllowDrop": true,
+    "requireDuplicateQuestionOrClaim": true
+  },
+  "split": {
+    "allowedStorySteps": ["breakdown", "hierarchy", "generic"],
+    "splitOversizedArrays": true,
+    "preserveEvidenceAndClaim": true
+  },
+  "safety": {
+    "neverDropOpening": true,
+    "neverDropActionClose": true,
+    "respectSequenceLocked": true,
+    "respectPositionLocked": true,
+    "doNotMergeAcrossDifferentCausalStatus": true,
+    "doNotInventEvidence": true,
+    "autoApplyOnlyReversibleOperations": true
+  }
+}
