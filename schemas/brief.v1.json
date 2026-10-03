@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/brief.v1.json",
+  "title": "Presentation Brief v1",
+  "type": "object",
+  "required": ["profile", "topic", "slideCount"],
+  "properties": {
+    "version": {"type": "string"},
+    "profile": {"const": "BRIEF-v1"},
+    "rawText": {"type": "string"},
+    "title": {"type": "string"},
+    "topic": {"type": "string"},
+    "audience": {"enum": ["executive", "manager", "operational", "technical", "general"]},
+    "objective": {"enum": ["approval", "proposal", "report", "analysis", "explain", "training"]},
+    "decision": {"type": "string"},
+    "slideCount": {"type": "integer", "minimum": 3, "maximum": 20},
+    "tone": {"type": "array", "items": {"type": "string"}},
+    "density": {"enum": ["LOW", "MED", "HIGH"]},
+    "dataEmphasis": {"enum": ["LOW", "MED", "HIGH"]},
+    "novelty": {"enum": ["LOW", "MED", "HIGH"]},
+    "language": {"type": "string"},
+    "medium": {"enum": ["powerpoint", "html", "both"]},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "content": {
+      "type": "object",
+      "properties": {
+        "headline": {"type": "string"},
+        "lead": {"type": "string"},
+        "metrics": {"type": "array"},
+        "points": {"type": "array"},
+        "problem": {"type": ["object", "string"]},
+        "cause": {"type": ["object", "string"]},
+        "solution": {"type": ["object", "string"]},
+        "current": {"type": ["object", "string"]},
+        "ideal": {"type": ["object", "string"]},
+        "stages": {"type": "array"},
+        "timeline": {"type": "array"},
+        "actions": {"type": "array"},
+        "chart": {"type": "object"},
+        "evidence": {"type": "array"}
+      }
+    }
+  }
+}
