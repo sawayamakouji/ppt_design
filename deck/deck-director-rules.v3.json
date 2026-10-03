@@ -1,0 +1,45 @@
+{
+  "version": "3.0",
+  "profile": "DECK-DIRECTOR-v3",
+  "reorderThreshold": 1,
+  "maxAutomaticMovesRatio": 0.5,
+  "arcTemplates": {
+    "diagnostic": ["opening", "kpi", "hierarchy", "breakdown", "association", "action"],
+    "executive_decision": ["opening", "kpi", "breakdown", "association", "action"],
+    "proposal": ["opening", "breakdown", "hierarchy", "action"],
+    "project_update": ["opening", "kpi", "breakdown", "action"],
+    "generic": ["opening", "kpi", "hierarchy", "breakdown", "association", "generic", "action"]
+  },
+  "objectiveToArc": {
+    "analysis": "diagnostic",
+    "diagnostic": "diagnostic",
+    "decision": "executive_decision",
+    "approval": "executive_decision",
+    "proposal": "proposal",
+    "plan": "proposal",
+    "update": "project_update",
+    "status": "project_update"
+  },
+  "headlineLeadByTransition": {
+    "OPEN": "",
+    "QUANTIFY": "まず、",
+    "DRILL": "次に、",
+    "DECOMPOSE": "その内訳では、",
+    "QUALIFY": "一方で、",
+    "RESOLVE": "だから、",
+    "CONTINUE": "さらに、"
+  },
+  "headlineRules": {
+    "maxCharsJa": 46,
+    "avoidGenericStarts": ["重要指標", "数値を", "要因を", "結果を", "まとめ", "分析結果"],
+    "preserveNumbers": true,
+    "preserveCausalStatus": true
+  },
+  "continuity": {
+    "requireQuestionProgression": true,
+    "requireBridgePhraseWhenTransitionChanges": true,
+    "preferEvidenceBeforeInterpretation": true,
+    "preferInterpretationBeforeAction": true
+  },
+  "lockedFields": ["sequenceLocked", "positionLocked"]
+}
