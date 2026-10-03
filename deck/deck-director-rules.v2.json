@@ -1,0 +1,84 @@
+{
+  "version": "2.0",
+  "profile": "DECK-DIRECTOR-v2",
+  "recentVisualShapeWindow": 2,
+  "minPeakGapSlides": 2,
+  "maxPeaksForSixSlides": 3,
+  "energyPriority": ["PEAK", "ANCHOR", "BRIDGE", "EVIDENCE", "CALM"],
+  "storyStepDefaults": {
+    "opening": {"visualMode":"hero", "baseEnergy":"PEAK"},
+    "kpi": {"visualMode":"key_numbers", "baseEnergy":"ANCHOR"},
+    "hierarchy": {"visualMode":"flow", "baseEnergy":"BRIDGE"},
+    "breakdown": {"visualMode":"data", "baseEnergy":"EVIDENCE"},
+    "association": {"visualMode":"explain", "baseEnergy":"CALM"},
+    "action": {"visualMode":"action", "baseEnergy":"PEAK"},
+    "generic": {"visualMode":"message", "baseEnergy":"CALM"}
+  },
+  "transitionByPair": {
+    "opening->kpi": {"type":"QUANTIFY", "cue":"結論を数字で固定する"},
+    "kpi->hierarchy": {"type":"DRILL", "cue":"数字を『どこ』へ分解する"},
+    "hierarchy->breakdown": {"type":"DECOMPOSE", "cue":"場所から構成要因へ進む"},
+    "breakdown->association": {"type":"QUALIFY", "cue":"寄与から関連候補へ切り替える"},
+    "association->action": {"type":"RESOLVE", "cue":"関連を次の確認行動へつなぐ"},
+    "generic->generic": {"type":"CONTINUE", "cue":"前ページの問いを一段進める"}
+  },
+  "directionProfiles": {
+    "A": {"label":"Executive Rhythm", "intent":"強い結論と余白。ピークを絞る。"},
+    "B": {"label":"Evidence Rhythm", "intent":"数値・証拠を主役にし、途中で強弱をつける。"},
+    "C": {"label":"Structured Rhythm", "intent":"構造・手順・論点のつながりを明示する。"}
+  },
+  "patternCandidates": {
+    "opening": {
+      "A":["ED01-D","ED01-B","ED01-E"],
+      "B":["ED01-C","ED01-E","ED01-A"],
+      "C":["ED01-A","ED01-B","ED01-D"]
+    },
+    "kpi": {
+      "A":["ED03-D"],
+      "B":["ED08-F"],
+      "C":["ED03-D"]
+    },
+    "hierarchy": {
+      "A":["ED07-A","ED07-E","ED07-B"],
+      "B":["ED07-E","ED07-A","ED07-D"],
+      "C":["ED07-F","ED07-C","ED07-A"]
+    },
+    "breakdown": {
+      "A":["ED08-D","ED08-G","ED08-F"],
+      "B":["ED08-G","ED08-D","ED08-F"],
+      "C":["ED08-F","ED08-D","ED08-G"]
+    },
+    "association": {
+      "A":["ED04-B","ED04-D","ED04-A"],
+      "B":["ED04-D","ED04-B","ED04-A"],
+      "C":["ED04-A","ED04-B","ED04-D"]
+    },
+    "action": {
+      "A":["ED11-B","ED11-A","ED11-D"],
+      "B":["ED11-D","ED11-A"],
+      "C":["ED11-A","ED11-D"]
+    },
+    "generic": {
+      "A":["ED02-A","ED02-B"],
+      "B":["ED02-C","ED02-A"],
+      "C":["ED02-B","ED02-D"]
+    }
+  },
+  "visualShape": {
+    "ED01-A":"hero-split","ED01-B":"hero-visual","ED01-C":"hero-centered","ED01-D":"hero-metric","ED01-E":"hero-editorial",
+    "ED03-D":"metric-card-row",
+    "ED04-A":"three-card-row","ED04-B":"one-plus-two","ED04-D":"stacked-rows","ED04-E":"stacked-rows",
+    "ED07-A":"horizontal-flow","ED07-B":"step-flow","ED07-C":"cycle","ED07-D":"network","ED07-E":"lane-flow","ED07-F":"system-map",
+    "ED08-D":"ranked-bars","ED08-F":"metric-card-row","ED08-G":"waterfall",
+    "ED11-A":"action-list","ED11-B":"action-table","ED11-D":"action-cards",
+    "ED02-A":"message-rule","ED02-B":"question-message","ED02-C":"accent-message","ED02-D":"claim-reality"
+  },
+  "compositionByEnergy": {
+    "A":{"PEAK":"CM01","ANCHOR":"CM02","BRIDGE":"CM02","EVIDENCE":"CM02","CALM":"CM03"},
+    "B":{"PEAK":"CM02","ANCHOR":"CM03","BRIDGE":"CM02","EVIDENCE":"CM02","CALM":"CM03"},
+    "C":{"PEAK":"CM02","ANCHOR":"CM02","BRIDGE":"CM02","EVIDENCE":"CM03","CALM":"CM03"}
+  },
+  "densityByMode": {
+    "hero":"LOW","key_numbers":"MED","flow":"MED","data":"MED","explain":"MED","action":"MED","message":"LOW"
+  }
+}
