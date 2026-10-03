@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "profile": "CAUSAL-TEST-PLANNER-RULES-v1",
+  "thresholds": {
+    "minUnitsPerArm": 5,
+    "minPrePeriodsDid": 4,
+    "minPostPeriodsDid": 2,
+    "minPrePeriodsIts": 8,
+    "goodAbsSmd": 0.10,
+    "cautionAbsSmd": 0.25,
+    "goodPretrendSlopeDiff": 0.05,
+    "cautionPretrendSlopeDiff": 0.15,
+    "minimumPanelCompleteness": 0.90
+  },
+  "methodPriority": [
+    "randomized_experiment",
+    "regression_discontinuity",
+    "instrumental_variables",
+    "difference_in_differences",
+    "event_study",
+    "aipw",
+    "ipw",
+    "matching",
+    "interrupted_time_series",
+    "simple_pre_post"
+  ],
+  "guardrails": {
+    "associationIsNotTreatment": true,
+    "simplePrePostIsDescriptiveUnlessStrongDesign": true,
+    "didRequiresUntreatedComparison": true,
+    "parallelTrendsMustBeChecked": true,
+    "aipwRequiresOverlapAndMeasuredConfounders": true,
+    "psmIsNotDefaultWhenWeightingOrAipwIsFeasible": true,
+    "allTreatedCannotUseStandardDid": true,
+    "effectPreviewIsExploratoryUntilAssumptionsPass": true
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "profile": "BRIEF-v1",
+  "title": "AIオーダー導入効果の検証設計",
+  "topic": "AIオーダー導入は売変率を改善したか",
+  "audience": "executive",
+  "objective": "analysis",
+  "slideCount": 6,
+  "density": "MED",
+  "dataEmphasis": "HIGH",
+  "language": "ja-JP",
+  "causalQuestion": {
+    "hypothesis": "AIオーダー導入は店舗の売変率を低下させる",
+    "treatment": "AIオーダー導入",
+    "treatmentField": "treated",
+    "outcome": "売変率",
+    "outcomeField": "markdown_rate",
+    "unitField": "store",
+    "timeField": "week_index",
+    "postField": "post",
+    "estimand": "ATT",
+    "covariates": ["baseline_inventory_days", "baseline_correction_rate", "baseline_sales_index"]
+  },
+  "content": {
+    "lead": "単純な導入前後比較ではなく、未導入店舗を対照に置き、導入効果を識別できる設計を選ぶ。"
+  }
+}
