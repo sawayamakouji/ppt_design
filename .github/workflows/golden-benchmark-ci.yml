@@ -49,6 +49,9 @@ jobs:
       - name: Typography & density contract
         run: node qa/test_typography_density_v1.js
 
+      - name: Readability contract
+        run: node qa/test_readability_v1.js
+
       - name: Generate current benchmark
         run: node qa/run_golden_benchmark_pipeline_v1.js "$GITHUB_WORKSPACE" "$CURRENT_OUT"
 
