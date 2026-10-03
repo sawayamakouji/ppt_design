@@ -64,7 +64,8 @@ Principle:
 Natural-language brief + EVIDENCE-BUNDLE-v1
   -> Content Planner
   -> Presentation Editor
-  -> Deck Director
+  -> Deck Length Editor
+  -> Deck Director v3
   -> A/B/C design directions
   -> PATTERN-DECK-v1
   -> Pattern Resolver: ED / Density / Theme / Composition -> geometry
@@ -82,16 +83,24 @@ Chooses what belongs in the deck from already-available evidence.
 
 Converts analysis-style prose into presentation-safe claims, values, labels, caveats, and page jobs. It enforces one page / one question / one primary claim.
 
-### Deck Director
+### Deck Length Editor
 
-Looks across the whole deck rather than slide-by-slide. It manages story progression, title sequence, visual rhythm, macrostructure diversity, visual peaks, repeated silhouettes, and closing action.
+Decides whether pages should be kept, merged, split, or dropped before sequence and visual rhythm are finalized. Automatic edits are deliberately conservative: unique evidence is never dropped just to hit a target page count, and every operation is recorded and reversible.
+
+### Deck Director v3
+
+Looks across the whole deck rather than slide-by-slide. It manages slide ordering, title-chain continuity, story progression, visual rhythm, macrostructure diversity, visual peaks, repeated silhouettes, and closing action.
 
 Canonical files:
 
 - `docs/PRESENTATION_EDITOR_V1.md`
-- `docs/DECK_DIRECTOR_V1.md`
-- `deck/deck-director-rules.v1.json`
-- `tools/direct_deck.js`
+- `docs/DECK_LENGTH_EDITOR_V1.md`
+- `deck/deck-length-editor-rules.v1.json`
+- `tools/edit_deck_length.js`
+- `tools/edit_length_then_direct_v3.js`
+- `docs/DECK_DIRECTOR_V3.md`
+- `deck/deck-director-rules.v3.json`
+- `tools/direct_deck_v3.js`
 - `docs/CONTENT_PLANNER_V1.md`
 - `docs/BRIEF_RESOLVER_V1.md`
 - `docs/PATTERN_RESOLVER_V1.md`
@@ -145,16 +154,16 @@ The current Linux/LibreOffice environment is treated as a compatibility stress t
 ```text
 ppt_design/
 ├─ README.md
-├─ samples/        # HTML design-system and slide-pattern playgrounds
+├─ samples/        # HTML design-system, deterministic plans and slide-pattern playgrounds
 ├─ patterns/       # Pattern definitions / IDs / metadata
 ├─ themes/         # Theme palettes / visual identities
 ├─ composition/    # CM01 / CM02 / CM03 composition modes
-├─ deck/           # Deck Director rules and deck-level orchestration
+├─ deck/           # Deck Length Editor + Deck Director rules
 ├─ content/        # Content Planner rules
 ├─ presentation/   # Presentation Editor rules
 ├─ brief/          # Brief Resolver rules
 ├─ schemas/        # Presentation interchange contracts
-├─ tools/          # Resolvers, compilers, adapters and review builders
+├─ tools/          # Resolvers, compilers, editors, adapters and review builders
 ├─ tokens/         # Color, typography, spacing, PPT-safe rendering tokens
 ├─ renderers/      # Shared scene graph / HTML / PPT renderer design
 ├─ qa/             # Presentation, regression, font, geometry and Golden QA

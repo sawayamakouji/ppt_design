@@ -1,0 +1,15 @@
+{
+  "version":"1.0",
+  "profile":"PRESENTATION-PLAN-v1",
+  "deck":{"title":"AIオーダー運用改善","topic":"AIオーダー","audience":"役員・本部長","objective":"decision"},
+  "slides":[
+    {"id":"S1","storyStep":"opening","question":"何が起きている？","claim":"AIオーダーは、自動化だけでは完成しない。","payload":{"lead":"導入後も人の修正が残る。運用設計まで含めて改善する。"},"sourceRefs":["E1"]},
+    {"id":"S2","storyStep":"kpi","question":"重要指標は？","claim":"まず、運用実態を4つの数字で押さえる。","payload":{"metrics":[{"value":"22.27%","label":"修正あり率"},{"value":"5.81%","label":"導入後売変率"}]},"sourceRefs":["E2"]},
+    {"id":"S3","storyStep":"kpi","question":"重要指標は？","claim":"まず、運用実態を4つの数字で押さえる。","payload":{"metrics":[{"value":"+0.58pt","label":"導入前比"},{"value":"r=0.39","label":"修正率×売変率変化"}]},"sourceRefs":["E2"]},
+    {"id":"S4","storyStep":"hierarchy","question":"どこを掘る？","claim":"次に、店→部門→カテゴリへ順に絞る。","payload":{"stages":[{"title":"店舗","text":"差が大きい店"},{"title":"部門","text":"悪化部門"},{"title":"カテゴリ","text":"寄与カテゴリ"}]},"sourceRefs":["E3"]},
+    {"id":"S5","storyStep":"breakdown","question":"どのカテゴリが寄与した？","claim":"その内訳では、変化が一部カテゴリに集中している。","payload":{"items":[{"label":"パン","value":18},{"label":"デリカ","value":16},{"label":"農産","value":12},{"label":"チルド","value":9},{"label":"菓子","value":7},{"label":"飲料","value":6},{"label":"調味料","value":5},{"label":"日配","value":4},{"label":"その他","value":3}]},"sourceRefs":["E4"]},
+    {"id":"S6","storyStep":"association","question":"何と一緒に動いた？","claim":"一方で、修正率との関連はあるが因果は未確認。","payload":{"items":[{"title":"修正率","text":"売変率変化との相関 r=0.39"},{"title":"注意","text":"関連は因果を意味しない"}]},"causalStatus":"association_only","sourceRefs":["E5"]},
+    {"id":"S7","storyStep":"generic","question":"何と一緒に動いた？","claim":"一方で、修正率との関連はあるが因果は未確認。","payload":{"body":"前ページの要約。"},"causalStatus":"association_only","sourceRefs":["E5"],"optional":true,"allowDrop":true},
+    {"id":"S8","storyStep":"action","question":"次に何をする？","claim":"だから、修正理由・棚割・例外商品の3点を整える。","payload":{"actions":[{"what":"修正理由を残す","who":"店舗"},{"what":"棚割・MinMaxを整える","who":"商品部"},{"what":"例外商品を定義する","who":"運用チーム"}]},"sourceRefs":["E6"]}
+  ]
+}

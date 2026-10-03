@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/deck-length-edit-plan.v1.json",
+  "title": "Deck Length Edit Plan v1",
+  "type": "object",
+  "required": ["profile", "beforeCount", "afterCount", "operations", "policy"],
+  "properties": {
+    "profile": {"const": "DECK-LENGTH-EDITOR-v1"},
+    "audienceClass": {"type": "string"},
+    "targetRange": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {"min": {"type": "integer"}, "max": {"type": "integer"}}
+    },
+    "beforeCount": {"type": "integer", "minimum": 1},
+    "afterCount": {"type": "integer", "minimum": 1},
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "sourceIds", "reason", "reversible"],
+        "properties": {
+          "type": {"enum": ["KEEP", "MERGE", "SPLIT", "DROP"]},
+          "sourceIds": {"type": "array", "items": {"type": "string"}},
+          "resultIds": {"type": "array", "items": {"type": "string"}},
+          "reason": {"type": "string"},
+          "reversible": {"const": true}
+        }
+      }
+    },
+    "warnings": {"type": "array"},
+    "policy": {
+      "type": "object",
+      "required": ["evidenceInvented", "claimsStrengthened", "locksRespected"],
+      "properties": {
+        "autoAppliedOnlySafeReversibleEdits": {"const": true},
+        "evidenceInvented": {"const": false},
+        "claimsStrengthened": {"const": false},
+        "locksRespected": {"const": true}
+      }
+    }
+  }
+}

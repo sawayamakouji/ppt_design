@@ -1,6 +1,7 @@
 {
   "version": "1.0",
   "profile": "DECK-LENGTH-EDITOR-v1",
+  "integrationOrder": "Presentation Editor -> Deck Length Editor -> Deck Director v3",
   "targetRanges": {
     "executive": {"min": 5, "max": 7},
     "management": {"min": 6, "max": 8},
