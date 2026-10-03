@@ -1,0 +1,31 @@
+{
+  "version":"1.0",
+  "profile":"CONTENT-PLANNER-RULES-v1",
+  "storyTemplates":{
+    "approval":["opening","message","diagnosis","points","timeline","action"],
+    "proposal":["opening","message","diagnosis","compare","timeline","action"],
+    "report":["opening","kpi","data","diagnosis","compare","action"],
+    "analysis":["opening","kpi","data","diagnosis","compare","action"],
+    "explain":["opening","message","points","flow","timeline","action"],
+    "training":["opening","message","points","flow","timeline","evidence"]
+  },
+  "visualSupport":{"kpi":true,"multiKpi":true,"delta":true,"line":true,"column":true,"ranking":true,"table":true,"compare":true,"scatter":false},
+  "roleTypeScores":{
+    "opening":{"fact":80,"delta":78,"trend":35,"ranking":20,"correlation":20,"table":10},
+    "message":{"fact":55,"delta":65,"trend":35,"ranking":30,"correlation":30,"table":15},
+    "kpi":{"fact":95,"delta":100,"trend":45,"ranking":30,"correlation":30,"table":20},
+    "data":{"fact":45,"delta":60,"trend":100,"ranking":88,"correlation":92,"table":55},
+    "diagnosis":{"fact":35,"delta":55,"trend":70,"ranking":96,"correlation":100,"table":65},
+    "compare":{"fact":45,"delta":100,"trend":82,"ranking":55,"correlation":45,"table":45},
+    "points":{"fact":55,"delta":55,"trend":35,"ranking":35,"correlation":30,"table":45},
+    "flow":{"fact":10,"delta":10,"trend":10,"ranking":10,"correlation":10,"table":20},
+    "timeline":{"fact":20,"delta":30,"trend":80,"ranking":20,"correlation":10,"table":25},
+    "action":{"fact":10,"delta":15,"trend":15,"ranking":20,"correlation":20,"table":15},
+    "evidence":{"fact":50,"delta":55,"trend":60,"ranking":65,"correlation":65,"table":100}
+  },
+  "patternHints":{"kpi":"ED03-D","delta":"ED03-B","line":"ED08-A","column":"ED08-B","ranking":"ED08-D","scatter":"ED08-C","compare":"ED05-A","table":"ED12-E","multiKpi":"ED03-D","none":"ED02-A"},
+  "reusePenalty":18,
+  "unsupportedVisualPenalty":35,
+  "minimumCandidateScore":35,
+  "maxAlternatives":3
+}
