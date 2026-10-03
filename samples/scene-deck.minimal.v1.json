@@ -1,0 +1,109 @@
+{
+  "version": "1.0",
+  "profile": "SCENE-DECK-v1",
+  "deck": {
+    "title": "Minimal Scene Deck",
+    "lang": "ja-JP",
+    "defaultTheme": "TH01",
+    "fonts": {
+      "jp": "Yu Gothic",
+      "latin": "Aptos"
+    }
+  },
+  "themes": {
+    "TH01": {
+      "bg": "F3F0E7",
+      "ink": "111111",
+      "accent": "D2471D",
+      "signal": "F6B72B",
+      "paper": "FAF8F2",
+      "muted": "6C675E"
+    },
+    "TH10": {
+      "bg": "FAFAF7",
+      "ink": "151515",
+      "accent": "315E9A",
+      "signal": "F2C84B",
+      "paper": "EEF2F6",
+      "muted": "68717C"
+    }
+  },
+  "slides": [
+    {
+      "id": "s1",
+      "theme": "TH01",
+      "meta": {
+        "pattern": "ED01-A",
+        "density": "LOW",
+        "composition": "CM01"
+      },
+      "elements": [
+        {
+          "type": "text",
+          "x": 5,
+          "y": 7,
+          "w": 40,
+          "h": 4,
+          "text": "SCENE-DECK-v1",
+          "style": {
+            "fontFace": "Aptos",
+            "fontSize": 10,
+            "bold": true,
+            "color": "$ink"
+          }
+        },
+        {
+          "type": "line",
+          "x1": 5,
+          "y1": 14,
+          "x2": 95,
+          "y2": 14,
+          "style": {
+            "color": "$ink",
+            "lineWidth": 2
+          }
+        },
+        {
+          "type": "text",
+          "x": 5,
+          "y": 22,
+          "w": 63,
+          "h": 20,
+          "text": "同じScene Graphから\nHTMLとPPTを生成。",
+          "style": {
+            "fontSize": 42,
+            "bold": true,
+            "color": "$ink"
+          }
+        },
+        {
+          "type": "rect",
+          "x": 72,
+          "y": 22,
+          "w": 23,
+          "h": 45,
+          "style": {
+            "fill": "$ink",
+            "line": "$ink",
+            "lineWidth": 0
+          }
+        },
+        {
+          "type": "text",
+          "x": 76,
+          "y": 37,
+          "w": 15,
+          "h": 10,
+          "text": "01",
+          "style": {
+            "fontFace": "Aptos",
+            "fontSize": 36,
+            "bold": true,
+            "color": "$signal",
+            "align": "center"
+          }
+        }
+      ]
+    }
+  ]
+}
