@@ -1,0 +1,45 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://ppt-design.local/schemas/driver-bundle.v1.json",
+  "title":"Driver Bundle v1",
+  "type":"object",
+  "required":["profile","target","drivers"],
+  "properties":{
+    "version":{"type":"string"},
+    "profile":{"const":"DRIVER-BUNDLE-v1"},
+    "target":{"type":"object"},
+    "drivers":{"type":"array","items":{"$ref":"#/$defs/driver"}},
+    "drilldown":{"type":"array"},
+    "recommendations":{"type":"object"},
+    "briefPatch":{"type":"object"}
+  },
+  "$defs":{
+    "driver":{
+      "type":"object",
+      "required":["id","type","title","message","score","confidence","causalStatus","sourceRefs","method"],
+      "properties":{
+        "id":{"type":"string"},
+        "type":{"enum":["hierarchical_contribution","change_concentration","segment_gap","delta_association","level_association","subgroup_stability","counterexample"]},
+        "title":{"type":"string"},
+        "message":{"type":"string"},
+        "score":{"type":"number","minimum":0,"maximum":100},
+        "confidence":{"type":"number","minimum":0,"maximum":1},
+        "priority":{"enum":["HIGH","MED","LOW"]},
+        "causalStatus":{"enum":["accounting_decomposition","association_only","descriptive_difference","requires_validation"]},
+        "targetMetric":{"type":"string"},
+        "driverMetric":{"type":"string"},
+        "dimension":{"type":"string"},
+        "path":{"type":"array"},
+        "n":{"type":"number"},
+        "effect":{"type":"number"},
+        "share":{"type":"number"},
+        "direction":{"enum":["up","down","mixed","none"]},
+        "evidence":{"type":"object"},
+        "method":{"type":"object"},
+        "sourceRefs":{"type":"array","items":{"type":"string"},"minItems":1},
+        "warnings":{"type":"array","items":{"type":"string"}},
+        "tags":{"type":"array","items":{"type":"string"}}
+      }
+    }
+  }
+}
