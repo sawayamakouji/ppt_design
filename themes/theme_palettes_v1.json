@@ -1,0 +1,108 @@
+{
+  "version": "1.0",
+  "usage": "ED08-C / MED / TH05",
+  "themes": [
+    {
+      "id": "TH01",
+      "name": "Warm Editorial",
+      "use": ["標準", "企画", "改革", "分析"],
+      "palette": {
+        "base": "#F3F0E7",
+        "ink": "#111111",
+        "primary": "#D2471D",
+        "signal": "#F6B72B",
+        "paper": "#FAF8F2"
+      },
+      "typography": "Bold Sans",
+      "grid": "Thin Grid",
+      "shape": "Square",
+      "texture": "Paper",
+      "tone": "Energetic"
+    },
+    {
+      "id": "TH02",
+      "name": "Pure Monochrome",
+      "use": ["役員", "重要報告", "正式資料"],
+      "palette": {
+        "base": "#FFFFFF",
+        "ink": "#0B0B0B",
+        "dark": "#3A3A3A",
+        "line": "#D9D9D4",
+        "paper": "#F5F5F2"
+      },
+      "typography": "Heavy Sans",
+      "grid": "Minimal",
+      "shape": "Strict",
+      "texture": "None",
+      "tone": "Serious"
+    },
+    {
+      "id": "TH03",
+      "name": "Swiss Grid",
+      "use": ["戦略", "コンサル", "ロジカル"],
+      "palette": {
+        "base": "#FFFFFF",
+        "ink": "#111111",
+        "primary": "#E2231A",
+        "cool": "#DCE4E8",
+        "paper": "#F6F6F4"
+      },
+      "typography": "Helvetica-like Sans",
+      "grid": "Strict Grid",
+      "shape": "Rectangular",
+      "texture": "None",
+      "tone": "Logical"
+    },
+    {
+      "id": "TH04",
+      "name": "Newspaper",
+      "use": ["調査", "レポート", "ストーリー"],
+      "palette": {
+        "base": "#F2EBDD",
+        "ink": "#241F1A",
+        "primary": "#8E2F23",
+        "secondary": "#B59E73",
+        "paper": "#F8F2E7"
+      },
+      "typography": "Serif Mix",
+      "grid": "Editorial Columns",
+      "shape": "Editorial",
+      "texture": "Print",
+      "tone": "Narrative"
+    },
+    {
+      "id": "TH05",
+      "name": "Technical Blueprint",
+      "use": ["IT", "AI", "Cloud", "Architecture"],
+      "palette": {
+        "base": "#EAF3F6",
+        "ink": "#102A43",
+        "primary": "#117A8B",
+        "signal": "#54D4D9",
+        "paper": "#F6FBFC"
+      },
+      "typography": "Tech Sans",
+      "grid": "Blueprint Grid",
+      "shape": "Modular",
+      "texture": "Technical",
+      "tone": "Precise"
+    },
+    {
+      "id": "TH10",
+      "name": "Data Journal",
+      "use": ["分析", "KPI", "調査結果"],
+      "palette": {
+        "base": "#FAFAF7",
+        "ink": "#151515",
+        "primary": "#315E9A",
+        "signal": "#F2C84B",
+        "chart_bg": "#EEF2F6"
+      },
+      "typography": "Readable Sans",
+      "grid": "Chart-first",
+      "shape": "Clean",
+      "texture": "None",
+      "tone": "Analytical"
+    }
+  ]
+}
