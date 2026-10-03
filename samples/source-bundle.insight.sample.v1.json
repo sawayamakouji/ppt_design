@@ -1,0 +1,113 @@
+{
+  "version": "1.0",
+  "profile": "SOURCE-BUNDLE-v1",
+  "metadata": {
+    "title": "Retail Insight Engine Sample",
+    "sample": true,
+    "note": "All values are illustrative sample data for Insight Engine QA."
+  },
+  "facts": [
+    {"id":"f1","label":"対象店舗","value":20,"displayValue":"20店","sourceRefs":["sample:summary"],"confidence":1},
+    {"id":"f2","label":"直近売上指数","value":123,"displayValue":"123","comparison":{"label":"期首 100","baselineValue":100,"baselineDisplay":"100","deltaValue":23,"deltaDisplay":"+23"},"sourceRefs":["sample:monthly_kpi"],"confidence":1},
+    {"id":"f3","label":"売変率","value":5.2,"displayValue":"5.2%","comparison":{"label":"期首 6.5%","baselineValue":6.5,"baselineDisplay":"6.5%","deltaValue":-1.3,"deltaDisplay":"▲1.3pt"},"sourceRefs":["sample:monthly_kpi"],"confidence":1},
+    {"id":"f4","label":"在庫日数","value":12.8,"displayValue":"12.8日","comparison":{"label":"期首 14.8日","baselineValue":14.8,"baselineDisplay":"14.8日","deltaValue":-2.0,"deltaDisplay":"▲2.0日"},"sourceRefs":["sample:monthly_kpi"],"confidence":1}
+  ],
+  "tables": [
+    {
+      "id":"monthly_kpi","title":"月次KPI推移","grain":"month",
+      "columns":[
+        {"name":"month","label":"月","type":"date","semantic":"time"},
+        {"name":"sales_index","label":"売上指数","type":"number","semantic":"metric","aggregation":"avg"},
+        {"name":"markdown_rate","label":"売変率","type":"number","semantic":"metric","unit":"%","aggregation":"avg"},
+        {"name":"inventory_days","label":"在庫日数","type":"number","semantic":"metric","unit":"日","aggregation":"avg"}
+      ],
+      "rows":[
+        {"month":"2025-10","sales_index":100,"markdown_rate":6.5,"inventory_days":14.8},
+        {"month":"2025-11","sales_index":101,"markdown_rate":6.4,"inventory_days":14.6},
+        {"month":"2025-12","sales_index":100,"markdown_rate":6.3,"inventory_days":14.5},
+        {"month":"2026-01","sales_index":102,"markdown_rate":6.3,"inventory_days":14.4},
+        {"month":"2026-02","sales_index":101,"markdown_rate":6.2,"inventory_days":14.2},
+        {"month":"2026-03","sales_index":102,"markdown_rate":6.1,"inventory_days":14.1},
+        {"month":"2026-04","sales_index":114,"markdown_rate":5.7,"inventory_days":13.6},
+        {"month":"2026-05","sales_index":116,"markdown_rate":5.6,"inventory_days":13.4},
+        {"month":"2026-06","sales_index":118,"markdown_rate":5.5,"inventory_days":13.2},
+        {"month":"2026-07","sales_index":119,"markdown_rate":5.4,"inventory_days":13.1},
+        {"month":"2026-08","sales_index":121,"markdown_rate":5.3,"inventory_days":16.8},
+        {"month":"2026-09","sales_index":123,"markdown_rate":5.2,"inventory_days":12.8}
+      ],
+      "provenance":{"kind":"sample","ref":"sample:monthly_kpi"},"sample":true
+    },
+    {
+      "id":"store_performance","title":"店舗別KPI","grain":"store",
+      "columns":[
+        {"name":"store","label":"店舗","type":"string","semantic":"dimension"},
+        {"name":"correction_rate","label":"修正率","type":"number","semantic":"metric","unit":"%","aggregation":"avg"},
+        {"name":"markdown_delta_pt","label":"売変率前年差","type":"number","semantic":"metric","unit":"pt","aggregation":"avg"},
+        {"name":"inventory_days","label":"在庫日数","type":"number","semantic":"metric","unit":"日","aggregation":"avg"},
+        {"name":"sales_amount","label":"売上金額","type":"number","semantic":"metric","unit":"百万円","aggregation":"sum"}
+      ],
+      "rows":[
+        {"store":"A店","correction_rate":10.0,"markdown_delta_pt":-1.1,"inventory_days":11.7,"sales_amount":170},
+        {"store":"B店","correction_rate":11.1,"markdown_delta_pt":-1.73,"inventory_days":10.6,"sales_amount":190},
+        {"store":"C店","correction_rate":12.1,"markdown_delta_pt":-1.2,"inventory_days":11.6,"sales_amount":165},
+        {"store":"D店","correction_rate":13.2,"markdown_delta_pt":-0.77,"inventory_days":12.4,"sales_amount":180},
+        {"store":"E店","correction_rate":14.2,"markdown_delta_pt":-1.65,"inventory_days":10.9,"sales_amount":155},
+        {"store":"F店","correction_rate":15.2,"markdown_delta_pt":-0.78,"inventory_days":12.5,"sales_amount":175},
+        {"store":"G店","correction_rate":16.3,"markdown_delta_pt":-1.6,"inventory_days":11.1,"sales_amount":160},
+        {"store":"H店","correction_rate":17.4,"markdown_delta_pt":-0.88,"inventory_days":12.4,"sales_amount":185},
+        {"store":"I店","correction_rate":18.4,"markdown_delta_pt":-0.3,"inventory_days":13.5,"sales_amount":158},
+        {"store":"J店","correction_rate":19.5,"markdown_delta_pt":-1.08,"inventory_days":12.2,"sales_amount":172},
+        {"store":"K店","correction_rate":20.5,"markdown_delta_pt":-0.3,"inventory_days":13.6,"sales_amount":168},
+        {"store":"L店","correction_rate":21.6,"markdown_delta_pt":-0.88,"inventory_days":12.6,"sales_amount":177},
+        {"store":"M店","correction_rate":22.6,"markdown_delta_pt":-0.25,"inventory_days":13.8,"sales_amount":163},
+        {"store":"N店","correction_rate":23.6,"markdown_delta_pt":-1.02,"inventory_days":12.4,"sales_amount":181},
+        {"store":"O店","correction_rate":24.7,"markdown_delta_pt":-0.15,"inventory_days":14.1,"sales_amount":159},
+        {"store":"P店","correction_rate":25.8,"markdown_delta_pt":-0.78,"inventory_days":13.0,"sales_amount":176},
+        {"store":"Q店","correction_rate":26.8,"markdown_delta_pt":-0.2,"inventory_days":14.1,"sales_amount":166},
+        {"store":"R店","correction_rate":27.9,"markdown_delta_pt":0.32,"inventory_days":15.1,"sales_amount":174},
+        {"store":"S店","correction_rate":28.9,"markdown_delta_pt":-0.5,"inventory_days":13.6,"sales_amount":162},
+        {"store":"T店","correction_rate":32.0,"markdown_delta_pt":0.18,"inventory_days":19.2,"sales_amount":171}
+      ],
+      "provenance":{"kind":"sample","ref":"sample:store_performance"},"sample":true
+    },
+    {
+      "id":"category_sales","title":"カテゴリ別売上","grain":"category",
+      "columns":[
+        {"name":"category","label":"カテゴリ","type":"string","semantic":"dimension"},
+        {"name":"sales_amount","label":"売上金額","type":"number","semantic":"metric","unit":"百万円","aggregation":"sum"},
+        {"name":"markdown_amount","label":"売変金額","type":"number","semantic":"metric","unit":"百万円","aggregation":"sum"}
+      ],
+      "rows":[
+        {"category":"デイリー","sales_amount":420,"markdown_amount":14.7},
+        {"category":"グロサリー","sales_amount":220,"markdown_amount":8.4},
+        {"category":"農産","sales_amount":100,"markdown_amount":4.1},
+        {"category":"水産","sales_amount":70,"markdown_amount":3.1},
+        {"category":"畜産","sales_amount":50,"markdown_amount":2.4},
+        {"category":"デリカ","sales_amount":40,"markdown_amount":2.0},
+        {"category":"ベーカリー","sales_amount":30,"markdown_amount":1.6},
+        {"category":"HBC","sales_amount":25,"markdown_amount":1.4},
+        {"category":"住居余暇","sales_amount":25,"markdown_amount":1.5},
+        {"category":"衣料","sales_amount":20,"markdown_amount":1.2}
+      ],
+      "provenance":{"kind":"sample","ref":"sample:category_sales"},"sample":true
+    },
+    {
+      "id":"area_performance","title":"エリア別実績","grain":"area",
+      "columns":[
+        {"name":"area","label":"エリア","type":"string","semantic":"dimension"},
+        {"name":"sales_growth","label":"売上伸長率","type":"number","semantic":"metric","unit":"%","aggregation":"avg"},
+        {"name":"sales_index","label":"売上指数","type":"number","semantic":"metric","aggregation":"avg"},
+        {"name":"inventory_days","label":"在庫日数","type":"number","semantic":"metric","unit":"日","aggregation":"avg"}
+      ],
+      "rows":[
+        {"area":"道央","sales_growth":8.2,"sales_index":105,"inventory_days":12.6},
+        {"area":"札幌","sales_growth":11.5,"sales_index":109,"inventory_days":12.9},
+        {"area":"道南","sales_growth":4.3,"sales_index":101,"inventory_days":13.8},
+        {"area":"道北","sales_growth":-1.8,"sales_index":96,"inventory_days":15.1},
+        {"area":"道東","sales_growth":6.4,"sales_index":103,"inventory_days":13.3},
+        {"area":"胆振","sales_growth":2.1,"sales_index":99,"inventory_days":14.4}
+      ],
+      "provenance":{"kind":"sample","ref":"sample:area_performance"},"sample":true
+    }
+  ]
+}
