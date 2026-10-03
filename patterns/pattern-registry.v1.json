@@ -1,0 +1,20 @@
+{
+  "version":"1.0",
+  "profile":"PATTERN-REGISTRY-v1",
+  "families":{
+    "ED01":{"name":"HERO","variants":{"A":"Standard Hero","B":"Poster Hero","C":"Number Hero","D":"Split Hero","E":"Photo Hero"}},
+    "ED02":{"name":"ONE MESSAGE","variants":{"A":"Statement","B":"Question","C":"Answer","D":"Contradiction","E":"Quote"}},
+    "ED03":{"name":"KEY NUMBER","variants":{"A":"Single KPI","B":"Delta KPI","C":"Target Gap","D":"KPI Trio/Quad","E":"Ratio"}},
+    "ED04":{"name":"THREE POINTS","variants":{"A":"Equal Three","B":"1+2","C":"Step Three","D":"Priority Three","E":"Three Risks"}},
+    "ED05":{"name":"COMPARE","variants":{"A":"Before/After","B":"A/B","C":"Old/New","D":"Current/Ideal","E":"3 Options"}},
+    "ED06":{"name":"PROBLEM → SOLUTION","variants":{"A":"Simple","B":"Problem/Cause/Solution","C":"Pain/Idea/Value","D":"Problem Stack"}},
+    "ED07":{"name":"FLOW","variants":{"A":"Linear 5","B":"Linear 3","C":"Loop","D":"Hub & Spoke","E":"Swimlane","F":"Funnel"}},
+    "ED08":{"name":"DATA STORY","variants":{"A":"Headline + Chart","B":"Chart Hero","C":"Annotated Chart","D":"Ranking","E":"Small Multiples","F":"Breakdown","G":"Waterfall Story"}},
+    "ED09":{"name":"MATRIX","variants":{"A":"Standard 2×2","B":"Portfolio","C":"Quadrant Story","D":"Priority Ladder"}},
+    "ED10":{"name":"TIMELINE","variants":{"A":"Roadmap","B":"Phases","C":"Milestones","D":"Now/Next/Later","E":"Progress"}},
+    "ED11":{"name":"ACTION","variants":{"A":"Next 3","B":"Who/What/When","C":"Decision Ask","D":"Commitment","E":"Risk & Countermeasure"}},
+    "ED12":{"name":"EVIDENCE","variants":{"A":"Methodology","B":"Data Definition","C":"Source Sheet","D":"Assumptions","E":"Appendix Table"}}
+  },
+  "grammar":"ED Pattern × Density × Theme × Composition × Render Profile → SCENE-DECK-v1",
+  "supportedVariantCount":61
+}
