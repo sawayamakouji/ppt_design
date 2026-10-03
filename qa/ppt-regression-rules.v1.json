@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "profile": "PPT-SAFE-v1",
+  "referenceRaster": {"widthPx": 1600, "heightPx": 900},
+  "baseline": {"deckAverageSSIM": 0.897, "overflow": "PASS"},
+  "blockingChecks": [
+    "text_clipped",
+    "object_out_of_bounds",
+    "low_contrast_text",
+    "material_font_fallback",
+    "chart_label_collision",
+    "unintended_overlap",
+    "blank_or_transparent_text"
+  ],
+  "geometryToleranceIn": {
+    "keyAnchor": 0.06,
+    "repeatedCardAlignment": 0.03,
+    "edgeMargin": 0.05,
+    "majorChartFrame": 0.06
+  },
+  "ssim": {
+    "deckAverageTarget": 0.90,
+    "greenMin": 0.90,
+    "warningMin": 0.86,
+    "failBelow": 0.86,
+    "stretchTarget": 0.92
+  },
+  "contrast": {
+    "bodyTarget": 4.5,
+    "largeTextTarget": 3.0
+  },
+  "regressionMatrix": [
+    "ED01-A / LOW / TH01 / CM01",
+    "ED03-B / LOW / TH01 / CM01",
+    "ED05-D / HIGH / TH01 / CM02",
+    "ED07-E / HIGH / TH01 / CM02",
+    "ED08-C / MED / TH01 / CM01",
+    "ED12-A / HIGH / TH01 / CM03",
+    "ED08-C / MED / TH05 / CM02",
+    "ED02-A / LOW / TH12 / CM01"
+  ]
+}
