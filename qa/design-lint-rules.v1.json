@@ -1,12 +1,14 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "profile": "PPT-DESIGN-AGENT-v1",
   "blocking": [
     "no_primary_message",
     "unreadable_text",
     "slide_reflow_detected",
     "signature_reference_copy_risk",
-    "content_hidden_by_font_shrink"
+    "content_hidden_by_font_shrink",
+    "object_collision",
+    "connector_endpoint_misalignment"
   ],
   "rules": {
     "hierarchy": {
@@ -67,6 +69,17 @@
       "responsiveTypographyInsideSlide": false,
       "uniformScaleOnly": true,
       "catalogUiMayReflow": true
+    },
+    "geometryRelations": {
+      "id": "L10",
+      "minimumGapPxBetweenTitleAndPrimaryContent": 32,
+      "rejectUnexpectedBoundingBoxIntersection": true,
+      "allowOverlapOnlyWhenPatternExplicitlyDeclaresIt": true,
+      "connectorMustTerminateAtTargetBoundary": true,
+      "connectorMustStartAtSourceBoundary": true,
+      "connectorBoundaryTolerancePx": 6,
+      "checkConnectorAgainstContainerBorder": true,
+      "checkTextAgainstCardAndChartBounds": true
     }
   },
   "workflow": [
