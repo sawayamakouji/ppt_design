@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ppt-design.local/schemas/deck-spec.v1.json",
+  "title": "Deck Spec v1",
+  "description": "Semantic handoff contract from a generative AI/editor to the deterministic ppt_design pipeline.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "profile", "deck", "slides"],
+  "properties": {
+    "version": {"const": "1.0"},
+    "profile": {"const": "DECK-SPEC-v1"},
+    "deck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "audience", "objective"],
+      "properties": {
+        "title": {"type": "string", "minLength": 1},
+        "topic": {"type": "string"},
+        "audience": {"type": "string", "minLength": 1},
+        "objective": {"type": "string", "minLength": 1},
+        "decisionExpected": {"type": "string"},
+        "language": {"type": "string", "default": "ja-JP"},
+        "linearStory": {"type": "boolean", "default": false},
+        "majorSections": {"type": "array", "items": {"type": "string"}},
+        "targetSlides": {
+          "oneOf": [
+            {"type": "integer", "minimum": 1},
+            {"type": "string", "minLength": 1}
+          ]
+        },
+        "preserveSequence": {"type": "boolean", "default": false}
+      }
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {"enum": ["auto", "executive", "data", "technical"], "default": "auto"},
+        "tone": {"type": "string"},
+        "densityPreference": {"enum": ["auto", "low", "medium", "high"], "default": "auto"}
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "type": {"type": "string"},
+          "label": {"type": "string"},
+          "value": {},
+          "sourceRef": {"type": "string"},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "slides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "slideJob", "question", "primaryClaim", "content"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "section": {"type": "string"},
+          "detailMode": {"enum": ["main", "supporting", "appendix"], "default": "main"},
+          "slideJob": {
+            "enum": [
+              "opening", "summary", "key_number", "compare", "diagnose", "breakdown",
+              "hierarchy", "process", "timeline", "matrix", "insight", "association",
+              "evidence", "decision", "action", "generic", "appendix"
+            ]
+          },
+          "question": {"type": "string", "minLength": 1},
+          "primaryClaim": {"type": "string", "minLength": 1},
+          "evidenceRefs": {"type": "array", "items": {"type": "string"}},
+          "visualIntent": {
+            "enum": ["auto", "hero", "one_message", "key_number", "compare", "problem_solution", "flow", "data_story", "matrix", "timeline", "action", "evidence"]
+          },
+          "content": {"type": "object", "additionalProperties": true},
+          "notes": {"type": "array", "items": {"type": "string"}},
+          "sequenceLocked": {"type": "boolean", "default": false},
+          "deckLengthLocked": {"type": "boolean", "default": false}
+        }
+      }
+    }
+  }
+}

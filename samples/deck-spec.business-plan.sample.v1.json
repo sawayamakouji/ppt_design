@@ -1,0 +1,117 @@
+{
+  "version": "1.0",
+  "profile": "DECK-SPEC-v1",
+  "deck": {
+    "title": "季節商材 発注・商戦計画",
+    "topic": "季節商材の発注起案と売場実行",
+    "audience": "商品・営業マネージャー",
+    "objective": "計画合意と店舗実行の共通化",
+    "decisionExpected": "重点カテゴリと発注・展開方針を合意する",
+    "language": "ja-JP",
+    "linearStory": true,
+    "majorSections": ["振り返り", "方針", "実行"],
+    "targetSlides": "6-8"
+  },
+  "design": {
+    "mode": "executive",
+    "tone": "簡潔・実務的・編集的",
+    "densityPreference": "medium"
+  },
+  "evidence": [
+    {"id":"E01","type":"metric","label":"売上前年差","value":"+4.2%","sourceRef":"synthetic://sales"},
+    {"id":"E02","type":"metric","label":"粗利前年差","value":"+1.1pt","sourceRef":"synthetic://margin"},
+    {"id":"E03","type":"metric","label":"欠品率","value":"2.8%","sourceRef":"synthetic://stockout"},
+    {"id":"E04","type":"finding","label":"需要立ち上がり","note":"市場より約1週遅い","sourceRef":"synthetic://weekly-index"}
+  ],
+  "slides": [
+    {
+      "id":"S01",
+      "section":"振り返り",
+      "detailMode":"main",
+      "slideJob":"opening",
+      "question":"今年の発注・商戦計画で何を変えるのか",
+      "primaryClaim":"早期展開と欠品防止を、同じ発注計画で設計する",
+      "evidenceRefs":["E03","E04"],
+      "visualIntent":"hero",
+      "content":{"lead":"前年実績と週別需要を起点に、重点カテゴリへ在庫と販促を集中する。","metric":"1週","metricLabel":"需要立ち上がり前倒し"}
+    },
+    {
+      "id":"S02",
+      "section":"振り返り",
+      "detailMode":"main",
+      "slideJob":"key_number",
+      "question":"前年は何が良く、何が課題だったか",
+      "primaryClaim":"売上は伸長したが、粗利と欠品には改善余地が残る",
+      "evidenceRefs":["E01","E02","E03"],
+      "visualIntent":"key_number",
+      "content":{"metrics":[
+        {"value":"+4.2%","label":"売上前年差"},
+        {"value":"+1.1pt","label":"粗利前年差"},
+        {"value":"2.8%","label":"欠品率"},
+        {"value":"1週","label":"需要差"}
+      ]}
+    },
+    {
+      "id":"S03",
+      "section":"方針",
+      "detailMode":"main",
+      "slideJob":"breakdown",
+      "question":"どこに重点を置くべきか",
+      "primaryClaim":"重点カテゴリは「規模 × 成長性 × 粗利寄与」で決める",
+      "evidenceRefs":["E01","E02"],
+      "visualIntent":"data_story",
+      "content":{"items":[
+        {"label":"カテゴリA","value":118},
+        {"label":"カテゴリB","value":109},
+        {"label":"カテゴリC","value":96},
+        {"label":"カテゴリD","value":87}
+      ]}
+    },
+    {
+      "id":"S04",
+      "section":"方針",
+      "detailMode":"main",
+      "slideJob":"process",
+      "question":"発注起案は何を見て決めるか",
+      "primaryClaim":"前年実績から需要時期まで、4段階で起案を組み立てる",
+      "evidenceRefs":["E01","E03","E04"],
+      "visualIntent":"flow",
+      "content":{"stages":[
+        {"title":"前年実績","text":"数量・金額・消化率"},
+        {"title":"重要度","text":"売上・粗利構成比"},
+        {"title":"需要時期","text":"週別指数・販促"},
+        {"title":"起案","text":"重点SKUと数量"}
+      ]}
+    },
+    {
+      "id":"S05",
+      "section":"実行",
+      "detailMode":"supporting",
+      "slideJob":"insight",
+      "question":"店舗実行で外してはいけないことは何か",
+      "primaryClaim":"立ち上げ・ピーク・終盤の3局面で売場と在庫を切り替える",
+      "evidenceRefs":["E04"],
+      "visualIntent":"one_message",
+      "content":{"items":[
+        {"title":"立ち上げ","text":"需要上昇前に展開開始"},
+        {"title":"ピーク","text":"主力SKUを欠品させない"},
+        {"title":"終盤","text":"在庫を集約し売り切る"}
+      ]}
+    },
+    {
+      "id":"S06",
+      "section":"実行",
+      "detailMode":"main",
+      "slideJob":"action",
+      "question":"次に何を決めて、誰が動くか",
+      "primaryClaim":"重点カテゴリ・起案数量・展開日を確定して店舗へ落とす",
+      "evidenceRefs":[],
+      "visualIntent":"action",
+      "content":{"actions":[
+        {"what":"重点カテゴリ確定","who":"商品担当","when":"今週"},
+        {"what":"起案数量レビュー","who":"商品＋営業","when":"翌週"},
+        {"what":"店舗展開共有","who":"営業企画","when":"発注前"}
+      ]}
+    }
+  ]
+}
