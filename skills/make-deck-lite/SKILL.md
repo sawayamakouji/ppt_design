@@ -1,3 +1,8 @@
+---
+name: make-deck-lite
+description: Use when the user asks Copilot in PowerPoint to create or substantially revise a business presentation from a topic, prompt, or attached reference files. Organize evidence, choose slide count, build a clear story, apply a restrained white/black/vermilion/yellow editorial style, and self-review the finished deck.
+---
+
 # make-deck-lite
 
 PowerPoint Agent / Copilot 系のエージェントで使う、軽量な資料作成スキル。
