@@ -1,5 +1,5 @@
 {
-  "version": "3.0",
+  "version": "3.1",
   "profile": "DECK-DIRECTOR-v3",
   "reorderThreshold": 1,
   "maxAutomaticMovesRatio": 0.5,
@@ -40,6 +40,23 @@
     "requireBridgePhraseWhenTransitionChanges": true,
     "preferEvidenceBeforeInterpretation": true,
     "preferInterpretationBeforeAction": true
+  },
+  "navigationPolicy": {
+    "excludeAppendixFromMainCount": true,
+    "agenda": {
+      "noAgendaMaxMainSlides": 7,
+      "conditionalMinMainSlides": 8,
+      "conditionalMaxMainSlides": 9,
+      "conditionalMajorSectionThreshold": 3,
+      "recommendedMinMainSlides": 10,
+      "requiredMinMainSlides": 20,
+      "linearStoryMayOmitBelowRequired": true
+    },
+    "sectionDividers": {
+      "recommendedMinMainSlides": 20,
+      "requiredMinMainSlides": 30,
+      "recommendedMajorSections": 4
+    }
   },
   "lockedFields": ["sequenceLocked", "positionLocked"]
 }
