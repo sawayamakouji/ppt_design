@@ -75,6 +75,40 @@ Natural-language brief + EVIDENCE-BUNDLE-v1
   -> Design Lint / PPT-SAFE / Golden QA
 ```
 
+## One-shot DECK-SPEC build
+
+`DECK-SPEC-v1` is the stable semantic handoff from a capable generative AI/editor into the deterministic presentation pipeline.
+
+The AI owns **meaning and story**. `ppt_design` owns **layout, typography, rendering, and QA**.
+
+```bash
+node tools/ppt-design.js build samples/deck-spec.business-plan.sample.v1.json --out ./output
+```
+
+The build produces:
+
+```text
+output/
+├─ deck-spec.resolved.json
+├─ final.scene.json
+├─ final.html
+├─ final.pptx
+├─ qa-report.json
+├─ readability-report.json
+├─ scene-qa-report.json
+└─ intermediate/
+```
+
+Each main slide is described semantically with a page job, reader question, primary claim, evidence references, and structured content. Coordinates and font sizes are intentionally excluded from the model-facing contract.
+
+See:
+
+- `schemas/deck-spec.v1.json`
+- `docs/DECK_SPEC_V1.md`
+- `tools/deck_spec_compiler_v1.js`
+- `tools/ppt-design.js`
+- `qa/test_deck_spec_v1.js`
+
 ### Content Planner
 
 Chooses what belongs in the deck from already-available evidence.
@@ -119,6 +153,7 @@ See `docs/GOLDEN_BENCHMARK_SUITE_V1.md`.
 It performs:
 
 - corpus contract validation
+- DECK-SPEC compiler contract validation
 - Pattern Deck -> Scene Deck resolution
 - Scene Graph bounds / geometry QA
 - fixed-canvas HTML generation
@@ -135,6 +170,10 @@ See `docs/VISUAL_QA_CI_V1.md`.
 
 Canonical files:
 
+- `schemas/deck-spec.v1.json`
+- `docs/DECK_SPEC_V1.md`
+- `tools/deck_spec_compiler_v1.js`
+- `tools/ppt-design.js`
 - `docs/PRESENTATION_EDITOR_V1.md`
 - `docs/DECK_LENGTH_EDITOR_V1.md`
 - `deck/deck-length-editor-rules.v1.json`
@@ -213,7 +252,7 @@ ppt_design/
 ├─ content/        # Content Planner rules
 ├─ presentation/   # Presentation Editor rules
 ├─ brief/          # Brief Resolver rules
-├─ schemas/        # Presentation interchange contracts
+├─ schemas/        # Presentation interchange contracts, including DECK-SPEC-v1
 ├─ tools/          # Resolvers, compilers, editors, adapters and review builders
 ├─ tokens/         # Color, typography, spacing, PPT-safe rendering tokens
 ├─ renderers/      # Shared scene graph / HTML / PPT renderer design
